@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import {Button, Text} from 'react-native-elements';
 import CartItem from '../components/CartItem';
 
@@ -9,17 +9,20 @@ var width = Dimensions.get('window').width; //full width
 const Cart = () => {
   return (
     <View style={styles.container}>
-      <View>
-        <CartItem />
-      </View>
-      {/* Total */}
-      <View style={styles.toalContainer}>
-        <Text style={styles.totalText}>Total:</Text>
-        <Text style={styles.totalText}>302$</Text>
-      </View>
+      <ScrollView>
+        <View>
+          <CartItem />
+          <CartItem />
+        </View>
+      </ScrollView>
       {/* Checkout */}
 
       <View style={styles.checkoutContainer}>
+        {/* Total */}
+        <View style={styles.toalContainer}>
+          <Text style={styles.totalText}>Total:</Text>
+          <Text style={styles.totalText}>302$</Text>
+        </View>
         <Button
           title="Checkout"
           buttonStyle={styles.checkoutButton}
@@ -37,24 +40,20 @@ const styles = StyleSheet.create({
   },
   toalContainer: {
     height: 80,
+    alignSelf: 'stretch',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#a7a7a7',
     paddingHorizontal: 10,
   },
   totalText: {
     fontSize: 25,
     fontWeight: '700',
   },
-  checkoutContainer: {
-    width: width,
-    position: 'absolute',
-    bottom: 20,
-    alignItems: 'center',
-  },
+  checkoutContainer: {alignItems: 'center'},
   checkoutButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 55,
     paddingHorizontal: 20,
     borderRadius: 10,

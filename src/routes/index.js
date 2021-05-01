@@ -8,6 +8,7 @@ import Signup from '../screens/SignupScreen';
 import Home from '../screens/Home';
 import Cart from '../screens/Cart';
 import Account from '../screens/Account';
+import {Icon} from 'react-native-elements';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -18,17 +19,33 @@ const HomeScreen = () => {
       <Tab.Screen
         name="home"
         component={Home}
-        options={{tabBarLabel: 'Explore'}}
+        options={{
+          tabBarLabel: 'Explore',
+          tabBarIcon: ({focused, color, size}) => {
+            return <Icon name="home" type="antdesign" />;
+          },
+        }}
       />
       <Tab.Screen
         name="cart"
         component={Cart}
-        options={{tabBarLabel: 'Cart'}}
+        options={{
+          tabBarLabel: 'Cart',
+          tabBarBadge: 3,
+          tabBarIcon: ({focused, color, size}) => {
+            return <Icon name="shoppingcart" type="antdesign" />;
+          },
+        }}
       />
       <Tab.Screen
         name="account"
         component={Account}
-        options={{tabBarLabel: 'Account'}}
+        options={{
+          tabBarLabel: 'Account',
+          tabBarIcon: ({focused, color, size}) => {
+            return <Icon name="user" type="antdesign" />;
+          },
+        }}
       />
     </Tab.Navigator>
   );

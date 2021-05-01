@@ -2,10 +2,9 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-import Signin from '../screens/Signin';
-import Signup from '../screens/Signup';
+import Signin from '../screens/SigninScreen';
+import Signup from '../screens/SignupScreen';
 import Home from '../screens/Home';
 import Cart from '../screens/Cart';
 import Account from '../screens/Account';
@@ -38,9 +37,17 @@ const HomeScreen = () => {
 const Routes = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="signin" headerMode="none">
-        <Stack.Screen name="sigin" component={Signin} />
-        <Stack.Screen name="signup" component={Signup} />
+      <Stack.Navigator initialRouteName="home">
+        <Stack.Screen
+          name="sigin"
+          component={Signin}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="signup"
+          component={Signup}
+          options={{headerShown: false}}
+        />
         <Stack.Screen name="home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>

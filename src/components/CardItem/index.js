@@ -9,7 +9,7 @@ const width = Dimensions.get('window').width; // Width Screen
 
 const CartItems = props => {
   return (
-    <TouchableOpacity onPress={() => props.navigation.navigate('checkout')}>
+    <TouchableOpacity onPress={() => props.navigation.navigate('item')}>
       <View style={styles.container}>
         {/* Image */}
         <View style={styles.imageContainer}>

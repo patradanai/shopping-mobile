@@ -8,7 +8,8 @@ import CategoryItem from '../components/CategoryItem';
 const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <View style={{alignSelf: 'stretch'}}>
+      {/* Category */}
+      <View style={{alignSelf: 'stretch', marginTop: 10}}>
         <Text style={styles.textHeader}>Categories</Text>
         <View style={{height: 120}}>
           <ScrollView
@@ -25,7 +26,7 @@ const Home = ({navigation}) => {
         </View>
       </View>
       {/* Item */}
-      <View style={{alignSelf: 'stretch', flex: 1}}>
+      <View style={{alignSelf: 'stretch', flex: 1, marginTop: 10}}>
         <Text style={styles.textHeader}>Products</Text>
         <ScrollView style={{flex: 1}}>
           <View style={styles.itemContainer}>

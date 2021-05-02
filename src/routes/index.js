@@ -8,6 +8,7 @@ import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
 import CartScreen from '../screens/CartScreen';
 import CheckoutScreen from '../screens/CheckoutScreen';
+import ItemScreen from '../screens/ItemScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import AccountScreen from '../screens/AccountScreen';
 import {Icon} from 'react-native-elements';
@@ -15,12 +16,38 @@ import {Icon} from 'react-native-elements';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const ExploreStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="home">
+      <Stack.Screen name="item" component={ItemScreen} />
+      <Stack.Screen name="home" component={HomeScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const CartStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="cart">
+      <Stack.Screen name="cart" component={CartScreen} />
+      <Stack.Screen name="checkout" component={CheckoutScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const AccountStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="account" component={AccountScreen} />
+    </Stack.Navigator>
+  );
+};
+
 const TabScreen = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="home"
-        component={HomeScreen}
+        name="exploreTab"
+        component={ExploreStack}
         options={{
           tabBarLabel: 'Explore',
           tabBarIcon: ({focused, color, size}) => {
@@ -29,8 +56,8 @@ const TabScreen = () => {
         }}
       />
       <Tab.Screen
-        name="cart"
-        component={CartScreen}
+        name="cartTab"
+        component={CartStack}
         options={{
           tabBarLabel: 'Cart',
           tabBarBadge: 3,
@@ -40,8 +67,8 @@ const TabScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={AccountScreen}
+        name="accountTab"
+        component={AccountStack}
         options={{
           tabBarLabel: 'Account',
           tabBarIcon: ({focused, color, size}) => {
@@ -67,13 +94,16 @@ const Routes = () => {
           component={SignupScreen}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="checkout" component={CheckoutScreen} />
         <Stack.Screen
           name="loading"
           component={LoadingScreen}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="tab" component={TabScreen} />
+        <Stack.Screen
+          name="tab"
+          component={TabScreen}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, ActivityIndicator} from 'react-native';
 
-const Cart = () => {
+const LoadingScreen = () => {
   return (
     <View style={styles.container}>
       <ActivityIndicator size="large" color="#000" />
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Cart;
+export default LoadingScreen;

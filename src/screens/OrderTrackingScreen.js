@@ -3,14 +3,14 @@ import {View, StyleSheet} from 'react-native';
 import {Button, Text} from 'react-native-elements';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-const Purchases = () => {
+const OrderTrackingScreen = () => {
   return (
     <SafeAreaView>
       <View>
-        <Text>Purchases</Text>
+        <Text>OrderTrackingScreen</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default Purchases;
+export default OrderTrackingScreen;

@@ -4,8 +4,7 @@ import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import {Text, Avatar, Icon} from 'react-native-elements';
 import AccountList from '../components/AccountItem';
 
-var width = Dimensions.get('window').width; //full width
-var height = Dimensions.get('window').height; //full height
+const width = Dimensions.get('window').width; //full width
 
 const listAccount = [
   {

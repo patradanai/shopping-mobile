@@ -4,9 +4,9 @@ import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import {Button, Text} from 'react-native-elements';
 import CartItem from '../components/CartItem';
 
-var width = Dimensions.get('window').width; //full width
+const width = Dimensions.get('window').width; //full width
 
-const Cart = ({navigation}) => {
+const CartScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Cart;
+export default CartScreen;

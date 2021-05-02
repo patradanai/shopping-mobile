@@ -28,8 +28,16 @@ const ExploreStack = () => {
 const CartStack = () => {
   return (
     <Stack.Navigator initialRouteName="cart">
-      <Stack.Screen name="cart" component={CartScreen} />
-      <Stack.Screen name="checkout" component={CheckoutScreen} />
+      <Stack.Screen
+        name="cart"
+        component={CartScreen}
+        options={{headerTitle: 'Cart'}}
+      />
+      <Stack.Screen
+        name="checkout"
+        component={CheckoutScreen}
+        options={{headerTitle: 'Checkout'}}
+      />
     </Stack.Navigator>
   );
 };
@@ -37,7 +45,11 @@ const CartStack = () => {
 const AccountStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="account" component={AccountScreen} />
+      <Stack.Screen
+        name="account"
+        component={AccountScreen}
+        options={{headerTitle: 'Profile'}}
+      />
     </Stack.Navigator>
   );
 };

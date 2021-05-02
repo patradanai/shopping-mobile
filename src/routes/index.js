@@ -1,17 +1,19 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Icon} from 'react-native-elements';
 
 import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
 import CartScreen from '../screens/CartScreen';
 import CheckoutScreen from '../screens/CheckoutScreen';
+import SeachScreen from '../screens/SearchScreen';
 import ItemScreen from '../screens/ItemScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import AccountScreen from '../screens/AccountScreen';
-import {Icon} from 'react-native-elements';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,7 +22,22 @@ const ExploreStack = () => {
   return (
     <Stack.Navigator initialRouteName="home">
       <Stack.Screen name="item" component={ItemScreen} />
-      <Stack.Screen name="home" component={HomeScreen} />
+      <Stack.Screen name="search" component={SeachScreen} />
+      <Stack.Screen
+        name="home"
+        component={HomeScreen}
+        options={({navigation}) => ({
+          headerRight: () => (
+            <Icon
+              style={{marginHorizontal: 15}}
+              name="search"
+              type="ionicon"
+              color="#000"
+              onPress={() => navigation.navigate('search')}
+            />
+          ),
+        })}
+      />
     </Stack.Navigator>
   );
 };

@@ -8,33 +8,38 @@ import CategoryItem from '../components/CategoryItem';
 const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
-      {/* Category */}
-      <View style={{alignSelf: 'stretch', marginTop: 10}}>
-        <Text style={styles.textHeader}>Categories</Text>
-        <View style={{height: 120}}>
-          <ScrollView
-            horizontal
-            contentContainerStyle={{flexGrow: 1}}
-            style={{flex: 1}}>
-            <View style={styles.categoryContainer}>
-              <CategoryItem />
-              <CategoryItem />
-              <CategoryItem />
-              <CategoryItem />
-            </View>
-          </ScrollView>
+      <ScrollView style={{flex: 1}}>
+        {/* Category */}
+        <View style={{alignSelf: 'stretch', marginTop: 10}}>
+          <Text style={styles.textHeader}>Categories</Text>
+          <View style={{height: 120}}>
+            <ScrollView
+              horizontal
+              contentContainerStyle={{flexGrow: 1}}
+              style={{flex: 1}}>
+              <View style={styles.categoryContainer}>
+                <CategoryItem />
+                <CategoryItem />
+                <CategoryItem />
+                <CategoryItem />
+              </View>
+            </ScrollView>
+          </View>
         </View>
-      </View>
-      {/* Item */}
-      <View style={{alignSelf: 'stretch', flex: 1, marginTop: 10}}>
-        <Text style={styles.textHeader}>Products</Text>
-        <ScrollView style={{flex: 1}}>
+        {/* Item */}
+        <View style={{alignSelf: 'stretch', flex: 1, marginTop: 10}}>
+          <Text style={styles.textHeader}>Products</Text>
+
           <View style={styles.itemContainer}>
             <CardItem navigation={navigation} />
             <CardItem navigation={navigation} />
+            <CardItem navigation={navigation} />
+            <CardItem navigation={navigation} />
+            <CardItem navigation={navigation} />
+            <CardItem navigation={navigation} />
           </View>
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };

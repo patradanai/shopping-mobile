@@ -53,6 +53,11 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>Fontisto.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>Zocial.ttf</string>
+		<string>Evillcons.ttf</string>
 		<string>Feather.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>Foundation.ttf</string>

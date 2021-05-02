@@ -9,7 +9,7 @@ const width = Dimensions.get('window').width; // Width Screen
 
 const CartItems = props => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => props.navigation.navigate('checkout')}>
       <View style={styles.container}>
         {/* Image */}
         <View style={styles.imageContainer}>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     width: width / cols - marginHorizontal * (cols + 1),
     marginLeft: marginHorizontal,
     marginRight: marginHorizontal,
-    marginVertical: 10,
+    marginVertical: 5,
     backgroundColor: '#fff',
   },
   imageContainer: {

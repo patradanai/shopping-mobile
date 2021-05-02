@@ -13,17 +13,17 @@ const listAccount = [
     pageName: 'profile',
   },
   {
-    name: 'My Addesses',
+    name: 'My Addresses',
     avatar_url: <Icon name="car-outline" type="ionicon" />,
     pageName: 'address',
   },
   {
-    name: 'Order History',
+    name: 'Orders',
     avatar_url: <Icon name="clipboard-outline" type="ionicon" />,
     pageName: 'order',
   },
   {
-    name: 'Order Tracking',
+    name: 'Wishlist',
     avatar_url: <Icon name="receipt-outline" type="ionicon" />,
     pageName: 'ordertracking',
   },

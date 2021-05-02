@@ -1,25 +1,39 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
-import {Text, Avatar} from 'react-native-elements';
+import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
+import {Text, Avatar, Icon} from 'react-native-elements';
 import AccountList from '../components/AccountItem';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
 
-const list = [
+const listAccount = [
   {
-    name: 'Amy Farha',
-    avatar_url:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-    subtitle: 'Vice President',
+    name: 'My Profile',
+    avatar_url: <Icon name="person-circle-outline" type="ionicon" />,
   },
   {
-    name: 'Chris Jackson',
-    avatar_url:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-    subtitle: 'Vice Chairman',
+    name: 'My Addesses',
+    avatar_url: <Icon name="car-outline" type="ionicon" />,
+  },
+  {
+    name: 'Order History',
+    avatar_url: <Icon name="clipboard-outline" type="ionicon" />,
+  },
+  {
+    name: 'Order Tracking',
+    avatar_url: <Icon name="receipt-outline" type="ionicon" />,
+  },
+];
+
+const listMore = [
+  {
+    name: 'Feedback Us',
+    avatar_url: <Icon name="megaphone-outline" type="ionicon" />,
+  },
+  {
+    name: 'Logout',
+    avatar_url: <Icon name="exit-outline" type="ionicon" />,
   },
 ];
 
@@ -45,20 +59,22 @@ const Account = () => {
       </View>
 
       {/* List Container Account */}
-      <View style={styles.listContainer}>
-        <Text style={styles.textSubTitle}>Account</Text>
-        {list.map((l, i) => (
-          <AccountList key={i} data={l} />
-        ))}
-      </View>
+      <ScrollView style={{flex: 1}}>
+        <View style={styles.listContainer}>
+          <Text style={styles.textSubTitle}>Account</Text>
+          {listAccount.map((l, i) => (
+            <AccountList key={i} data={l} />
+          ))}
+        </View>
 
-      {/* List Container Account */}
-      <View style={styles.listContainer}>
-        <Text style={styles.textSubTitle}>More</Text>
-        {list.map((l, i) => (
-          <AccountList key={i} data={l} />
-        ))}
-      </View>
+        {/* List Container Account */}
+        <View style={styles.listContainer}>
+          <Text style={styles.textSubTitle}>More</Text>
+          {listMore.map((l, i) => (
+            <AccountList key={i} data={l} />
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 };

@@ -5,10 +5,9 @@ import {ListItem, Avatar, Text} from 'react-native-elements';
 const AccountItem = props => {
   return (
     <ListItem bottomDivider>
-      <Avatar source={{uri: props.data.avatar_url}} />
+      <View>{props.data.avatar_url}</View>
       <ListItem.Content>
         <ListItem.Title>{props.data.name}</ListItem.Title>
-        <ListItem.Subtitle>{props.data.subtitle}</ListItem.Subtitle>
       </ListItem.Content>
     </ListItem>
   );

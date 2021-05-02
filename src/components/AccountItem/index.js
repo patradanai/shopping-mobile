@@ -4,7 +4,7 @@ import {ListItem, Avatar, Text} from 'react-native-elements';
 
 const AccountItem = props => {
   return (
-    <ListItem bottomDivider>
+    <ListItem bottomDivider onPress={props.onPressList}>
       <View>{props.data.avatar_url}</View>
       <ListItem.Content>
         <ListItem.Title>{props.data.name}</ListItem.Title>

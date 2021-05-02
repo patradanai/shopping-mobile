@@ -5,11 +5,9 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 const OrderTrackingScreen = () => {
   return (
-    <SafeAreaView>
-      <View>
-        <Text>OrderTrackingScreen</Text>
-      </View>
-    </SafeAreaView>
+    <View>
+      <Text>OrderTrackingScreen</Text>
+    </View>
   );
 };
 

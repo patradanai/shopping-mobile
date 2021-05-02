@@ -10,18 +10,22 @@ const listAccount = [
   {
     name: 'My Profile',
     avatar_url: <Icon name="person-circle-outline" type="ionicon" />,
+    pageName: 'profile',
   },
   {
     name: 'My Addesses',
     avatar_url: <Icon name="car-outline" type="ionicon" />,
+    pageName: 'address',
   },
   {
     name: 'Order History',
     avatar_url: <Icon name="clipboard-outline" type="ionicon" />,
+    pageName: 'order',
   },
   {
     name: 'Order Tracking',
     avatar_url: <Icon name="receipt-outline" type="ionicon" />,
+    pageName: 'ordertracking',
   },
 ];
 
@@ -36,7 +40,7 @@ const listMore = [
   },
 ];
 
-const Account = () => {
+const Account = ({navigation}) => {
   return (
     <View style={styles.container}>
       {/* Header Container */}
@@ -62,7 +66,11 @@ const Account = () => {
         <View style={styles.listContainer}>
           <Text style={styles.textSubTitle}>Account</Text>
           {listAccount.map((l, i) => (
-            <AccountList key={i} data={l} />
+            <AccountList
+              key={i}
+              data={l}
+              onPressList={() => navigation.navigate(l.pageName)}
+            />
           ))}
         </View>
 

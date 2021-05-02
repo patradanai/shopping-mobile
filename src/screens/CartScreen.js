@@ -6,7 +6,7 @@ import CartItem from '../components/CartItem';
 
 var width = Dimensions.get('window').width; //full width
 
-const Cart = () => {
+const Cart = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -27,6 +27,7 @@ const Cart = () => {
           title="Checkout"
           buttonStyle={styles.checkoutButton}
           containerStyle={{width: '80%'}}
+          onPress={() => navigation.navigate('checkout')}
         />
       </View>
     </View>

@@ -7,6 +7,8 @@ import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
 import CartScreen from '../screens/CartScreen';
+import CheckoutScreen from '../screens/CheckoutScreen';
+import LoadingScreen from '../screens/LoadingScreen';
 import AccountScreen from '../screens/AccountScreen';
 import {Icon} from 'react-native-elements';
 
@@ -65,7 +67,12 @@ const Routes = () => {
           component={SignupScreen}
           options={{headerShown: false}}
         />
-
+        <Stack.Screen name="checkout" component={CheckoutScreen} />
+        <Stack.Screen
+          name="loading"
+          component={LoadingScreen}
+          options={{headerShown: false}}
+        />
         <Stack.Screen name="tab" component={TabScreen} />
       </Stack.Navigator>
     </NavigationContainer>

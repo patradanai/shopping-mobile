@@ -1,10 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import {Button, Text} from 'react-native-elements';
 import CartItem from '../components/CartItem';
-
-const width = Dimensions.get('window').width; //full width
 
 const CartScreen = ({navigation}) => {
   return (

@@ -9,7 +9,7 @@ import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
 import CartScreen from '../screens/CartScreen';
-import CheckoutScreen from '../screens/CheckoutScreen';
+import CheckoutScreen from '../screens/Checkout/CheckoutScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ItemScreen from '../screens/ItemScreen';
 import LoadingScreen from '../screens/LoadingScreen';

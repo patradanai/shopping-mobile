@@ -1,7 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {View, useWindowDimensions, StyleSheet, Dimensions} from 'react-native';
-import {Text} from 'react-native-elements';
+import {
+  View,
+  useWindowDimensions,
+  StyleSheet,
+  Dimensions,
+  Animated,
+  TouchableOpacity,
+} from 'react-native';
+import {Text, Icon} from 'react-native-elements';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 
 // Width Screen
@@ -21,14 +28,14 @@ const renderScene = SceneMap({
   third: ThirdRoute,
 });
 
-const OrderScreen = () => {
+const CheckoutScreen = () => {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    {key: 'first', title: 'Order'},
-    {key: 'second', title: 'Delivery'},
-    {key: 'third', title: 'Completed'},
+    {key: 'first', title: 'Shipping'},
+    {key: 'second', title: 'Payment'},
+    {key: 'third', title: 'Confirm'},
   ]);
 
   const renderTabBar = props => (
@@ -40,6 +47,13 @@ const OrderScreen = () => {
       style={{backgroundColor: '#fff'}}
       scrollEnabled={true}
       indicatorStyle={{backgroundColor: '#f4511e', height: 5, borderRadius: 10}}
+      renderIcon={({route, focused, color}) => (
+        <Icon
+          name={focused ? 'checkmark-circle-outline' : null}
+          type="ionicon"
+          color="green"
+        />
+      )}
     />
   );
 
@@ -80,7 +94,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OrderScreen;
+export default CheckoutScreen;
 
 // const renderTabBar = ({navigationState, position}) => {
 //   const inputRange = navigationState.routes.map((x, i) => i);

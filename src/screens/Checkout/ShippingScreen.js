@@ -10,8 +10,6 @@ import InputForm from '../../components/FormAddress';
 
 //Width SCreen
 
-const width = Dimensions.get('window').width;
-
 const shippingList = [
   {name: 'Standard', price: '฿30'},
   {name: 'EMS', price: '฿50'},

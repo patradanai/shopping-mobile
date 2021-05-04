@@ -4,11 +4,37 @@ import {View, StyleSheet, ScrollView} from 'react-native';
 import {Text} from 'react-native-elements';
 import CardItem from '../components/CardItem';
 import CategoryItem from '../components/CategoryItem';
+import CarouselItem from '../components/Carousel';
+
+const carouselItems = [
+  {
+    title: 'Item 1',
+    text: 'Text 1',
+  },
+  {
+    title: 'Item 2',
+    text: 'Text 2',
+  },
+  {
+    title: 'Item 3',
+    text: 'Text 3',
+  },
+  {
+    title: 'Item 4',
+    text: 'Text 4',
+  },
+  {
+    title: 'Item 5',
+    text: 'Text 5',
+  },
+];
 
 const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ScrollView style={{flex: 1}}>
+        {/* Carousel */}
+        <CarouselItem entries={carouselItems} />
         {/* Category */}
         <View style={{alignSelf: 'stretch', marginTop: 10}}>
           <Text style={styles.textHeader}>Categories</Text>

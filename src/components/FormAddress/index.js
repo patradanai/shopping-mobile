@@ -5,6 +5,7 @@ import {Input} from 'react-native-elements';
 const FormAddress = props => {
   return (
     <Input
+      {...props}
       name={props.name}
       placeholder={props.placeholder}
       onChangeText={props.handleChange}
@@ -17,11 +18,8 @@ const FormAddress = props => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   inputContainer: {
-    width: '100%',
+    flex: 1,
     backgroundColor: '#edeef2',
     justifyContent: 'center',
     borderRadius: 5,

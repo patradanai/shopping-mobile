@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
-import {Text, Image, Icon} from 'react-native-elements';
+import {Text, Image} from 'react-native-elements';
 
 const width = Dimensions.get('window').width; //full width
 const height = Dimensions.get('window').height; //full width
@@ -25,14 +25,23 @@ const OrderItem = props => {
         </View>
         <View style={styles.quantityContainer}>
           <Text style={{fontSize: 13, fontWeight: 'bold', marginHorizontal: 5}}>
-            1
+            300$
           </Text>
         </View>
       </View>
 
       {/* cancel & price */}
       <View style={styles.lastContainer}>
-        <Text style={{fontSize: 15, fontWeight: 'bold'}}>300$</Text>
+        <Text
+          style={{
+            fontSize: 13,
+            fontWeight: 'bold',
+            borderWidth: 1,
+            padding: 8,
+            borderRadius: 5,
+          }}>
+          1
+        </Text>
       </View>
     </View>
   );
@@ -67,7 +76,7 @@ const styles = StyleSheet.create({
   },
   lastContainer: {
     height: '100%',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     paddingVertical: 10,
   },
 });

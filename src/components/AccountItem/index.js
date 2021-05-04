@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {ListItem, Avatar, Text} from 'react-native-elements';
+import {View} from 'react-native';
+import {ListItem} from 'react-native-elements';
 
 const AccountItem = props => {
   return (

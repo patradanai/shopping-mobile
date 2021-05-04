@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Text, Icon} from 'react-native-elements';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {TabView, TabBar} from 'react-native-tab-view';
 
 import ConfirmScreen from './ComfirmScreen';
 import PaymentScreen from './PaymentScreen';
@@ -18,25 +18,32 @@ import ShippingScreen from './ShippingScreen';
 // Width Screen
 const width = Dimensions.get('window').width;
 
-const renderScene = SceneMap({
-  first: ShippingScreen,
-  second: PaymentScreen,
-  third: ConfirmScreen,
-});
-
 const CheckoutScreen = () => {
   const layout = useWindowDimensions();
-
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    {key: 'first', title: 'Shipping'},
-    {key: 'second', title: 'Payment'},
-    {key: 'third', title: 'Confirm'},
+    {key: 'shipping', title: 'Shipping'},
+    {key: 'payment', title: 'Payment'},
+    {key: 'confirm', title: 'Confirm'},
   ]);
+
+  const renderScene = ({route, jumpTo}) => {
+    switch (route.key) {
+      case 'shipping':
+        return <ShippingScreen jumpTo={setIndex} />;
+      case 'payment':
+        return <PaymentScreen jumpTo={setIndex} />;
+      case 'confirm':
+        return <ConfirmScreen />;
+      default:
+        return null;
+    }
+  };
 
   const renderTabBar = props => (
     <TabBar
       {...props}
+      onTabPress={({route, preventDefault}) => {}}
       tabStyle={{width: width / 3}}
       activeColor="#f4511e"
       inactiveColor="#000"
@@ -45,7 +52,7 @@ const CheckoutScreen = () => {
       indicatorStyle={{backgroundColor: '#f4511e', height: 5, borderRadius: 10}}
       renderIcon={({route, focused, color}) => (
         <Icon
-          name={focused ? 'checkmark-circle-outline' : null}
+          name={route.key ? 'checkmark-circle-outline' : null}
           type="ionicon"
           color="green"
         />

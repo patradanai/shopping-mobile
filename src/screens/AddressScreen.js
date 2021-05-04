@@ -100,13 +100,6 @@ const AddressScreen = ({navigation}) => {
                 buttonStyle={styles.buttonSave}
                 onPress={handleSubmit}
               />
-              <Button
-                title="Cancel"
-                containerStyle={styles.buttonContainer}
-                buttonStyle={styles.buttonCancel}
-                titleStyle={{color: '#2ace25'}}
-                onPress={() => navigation.goBack()}
-              />
             </View>
           )}
         </Formik>

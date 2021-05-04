@@ -7,7 +7,6 @@ import {SearchBar} from 'react-native-elements';
 const SeachItem = props => {
   return (
     <SearchBar
-      showLoading
       platform={Platform.OS === 'ios' ? 'ios' : 'android'}
       placeholder="Type Here..."
       onChangeText={props.updateSearch}

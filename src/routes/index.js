@@ -14,7 +14,7 @@ import SearchScreen from '../screens/SearchScreen';
 import ItemScreen from '../screens/ItemScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import AccountScreen from '../screens/AccountScreen';
-import OrderScreen from '../screens/OrderScreen';
+import OrderScreen from '../screens/Order/OrderScreen';
 import OrderTrackingScreen from '../screens/OrderTrackingScreen';
 import AddresScreen from '../screens/AddressScreen';
 import ProfileScreen from '../screens/ProfileScreen';

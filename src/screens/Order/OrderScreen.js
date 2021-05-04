@@ -4,21 +4,17 @@ import {View, useWindowDimensions, StyleSheet, Dimensions} from 'react-native';
 import {Text} from 'react-native-elements';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 
+import PlaceOrderScreen from './PlaceOrderScreen';
+import ShippingOrderScreen from './ShippingOrderScreen';
+import CompletedOrderScreen from './CompletedOrderScreen';
+
 // Width Screen
 const width = Dimensions.get('window').width;
 
-const FirstRoute = () => <View style={{flex: 1, backgroundColor: '#ff4081'}} />;
-
-const SecondRoute = () => (
-  <View style={{flex: 1, backgroundColor: '#673ab7'}} />
-);
-
-const ThirdRoute = () => <View style={{flex: 1, backgroundColor: '#673ab7'}} />;
-
 const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-  third: ThirdRoute,
+  first: PlaceOrderScreen,
+  second: ShippingOrderScreen,
+  third: CompletedOrderScreen,
 });
 
 const OrderScreen = () => {

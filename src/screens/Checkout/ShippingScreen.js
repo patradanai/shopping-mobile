@@ -1,7 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Text, Button, Icon} from 'react-native-elements';
 import DeliveryMethodItem from '../../components/DeliveryMethodItem';
+import SwitchLabel from '../../components/SwitchLabel';
 
 const shippingList = [
   {name: 'Standard', price: '฿30'},
@@ -15,6 +17,10 @@ const ShippingScreen = props => {
   return (
     <View style={styles.container}>
       <Text>ShippingScreen</Text>
+      {/* Swtich */}
+      <SwitchLabel label="Save for future" state={true} />
+      <SwitchLabel label="Address seem as account" state={true} />
+      {/* Delivery */}
       <View style={{flex: 1, paddingHorizontal: 10}}>
         <Text style={{fontSize: 15, fontWeight: 'bold', marginVertical: 20}}>
           DELEVERY
@@ -32,6 +38,7 @@ const ShippingScreen = props => {
         </ScrollView>
       </View>
 
+      {/* Button */}
       <View>
         <Button
           title="Continue to Payments"

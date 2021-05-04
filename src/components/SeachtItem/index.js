@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 
-import {View, Platform} from 'react-native';
+import {Platform} from 'react-native';
 import {SearchBar} from 'react-native-elements';
 
 const SeachItem = props => {

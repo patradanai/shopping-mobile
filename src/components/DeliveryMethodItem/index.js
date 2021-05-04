@@ -1,10 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Text} from 'react-native-elements';
 
 // Width
-
-const width = Dimensions.get('window').width;
 
 const DeliveryMethodItem = ({name, price}) => {
   return (

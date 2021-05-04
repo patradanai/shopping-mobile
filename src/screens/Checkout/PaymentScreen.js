@@ -2,6 +2,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Text, Button, Icon} from 'react-native-elements';
+import PaymentItem from '../../components/PaymentItem';
 
 const listPayment = [
   {name: 'COD'},
@@ -13,8 +14,10 @@ const listPayment = [
 const PaymentScreen = props => {
   return (
     <View style={styles.container}>
+      <Text style={styles.textPayment}>Pay by</Text>
       <View style={styles.paymentContainer}>
-        <Text style={styles.textPayment}>Pay by</Text>
+        <PaymentItem />
+        <PaymentItem />
       </View>
       <View>
         <Button

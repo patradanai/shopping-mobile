@@ -11,21 +11,17 @@ import {
 import {Text, Icon} from 'react-native-elements';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 
+import ConfirmScreen from './ComfirmScreen';
+import PaymentScreen from './PaymentScreen';
+import ShippingScreen from './ShippingScreen';
+
 // Width Screen
 const width = Dimensions.get('window').width;
 
-const FirstRoute = () => <View style={{flex: 1, backgroundColor: '#ff4081'}} />;
-
-const SecondRoute = () => (
-  <View style={{flex: 1, backgroundColor: '#673ab7'}} />
-);
-
-const ThirdRoute = () => <View style={{flex: 1, backgroundColor: '#673ab7'}} />;
-
 const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-  third: ThirdRoute,
+  first: ShippingScreen,
+  second: PaymentScreen,
+  third: ConfirmScreen,
 });
 
 const CheckoutScreen = () => {

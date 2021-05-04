@@ -1,11 +1,16 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Text, Input, Button, Avatar, Icon} from 'react-native-elements';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {transform} from '@babel/core';
 
 const ProfileScreen = () => {
+  const initialValues = {
+    email: '',
+    phone: '',
+    name: '',
+  };
   return (
     <View style={styles.container}>
       {/* Container Card */}
@@ -22,26 +27,52 @@ const ProfileScreen = () => {
             <Avatar.Accessory size={35} />
           </Avatar>
         </View>
-        <Input
-          label="Name"
-          inputContainerStyle={styles.inputContianer}
-          rightIcon={<Icon name="person-circle-outline" type="ionicon" />}
-        />
-        <Input
-          label="Phone"
-          inputContainerStyle={styles.inputContianer}
-          rightIcon={<Icon name="call-outline" type="ionicon" />}
-        />
-        <Input
-          label="Email"
-          inputContainerStyle={styles.inputContianer}
-          rightIcon={<Icon name="at-outline" type="ionicon" />}
-        />
-        <Button
-          title="Update Profile"
-          buttonStyle={styles.buttonSave}
-          containerStyle={{paddingHorizontal: 20}}
-        />
+        <Formik
+          initialValues={initialValues}
+          validationSchema={Yup.object().shape({
+            name: Yup.string().required('Please fill your name'),
+            phone: Yup.string().required('Please fill your phone'),
+            email: Yup.string().email().required('Please fill your email'),
+          })}>
+          {({values, errors, handleChange, handleBlur, handleSubmit}) => (
+            <View style={{width: '100%'}}>
+              <Input
+                label="Name"
+                inputContainerStyle={styles.inputContianer}
+                rightIcon={<Icon name="person-circle-outline" type="ionicon" />}
+                onChangeText={handleChange('name')}
+                onBlur={handleBlur('name')}
+                value={values.name}
+                errorMessage={errors.name}
+              />
+              <Input
+                label="Phone"
+                inputContainerStyle={styles.inputContianer}
+                rightIcon={<Icon name="call-outline" type="ionicon" />}
+                onChangeText={handleChange('phone')}
+                onBlur={handleBlur('phone')}
+                value={values.phone}
+                errorMessage={errors.phone}
+              />
+              <Input
+                label="Email"
+                inputContainerStyle={styles.inputContianer}
+                rightIcon={<Icon name="at-outline" type="ionicon" />}
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+                value={values.email}
+                keyboardType="email-address"
+                errorMessage={errors.email}
+              />
+              <Button
+                title="Update Profile"
+                buttonStyle={styles.buttonSave}
+                containerStyle={{paddingHorizontal: 20}}
+                onPress={handleSubmit}
+              />
+            </View>
+          )}
+        </Formik>
       </View>
     </View>
   );

@@ -50,17 +50,17 @@ const ConfirmScreen = props => {
       <View style={styles.containerButton}>
         {/* Sub */}
         <View style={styles.subContainer}>
-          <Text style={styles.subText}>SubTotal:</Text>
+          <Text style={styles.subText}>SubTotal</Text>
           <Text style={styles.subText}>302$</Text>
         </View>
         {/* Shipping */}
         <View style={styles.subContainer}>
-          <Text style={styles.subText}>Shipping:</Text>
+          <Text style={styles.subText}>Shipping & handling</Text>
           <Text style={styles.subText}>+30$</Text>
         </View>
         {/* Total */}
         <View style={styles.toalContainer}>
-          <Text style={styles.totalText}>Total Amount:</Text>
+          <Text style={styles.totalText}>Total Amount</Text>
           <Text style={styles.totalText}>302$</Text>
         </View>
         <Button
@@ -98,8 +98,10 @@ const styles = StyleSheet.create({
   },
   containerButton: {
     paddingTop: 10,
-    backgroundColor: 'rgba(188,186,186,0.3)',
+    backgroundColor: 'rgba(243,243,244,1)',
     alignSelf: 'stretch',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
   },
   ButtonStyle: {height: 64, backgroundColor: '#2db2ff'},
   toalContainer: {
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     fontSize: 13,
-    textTransform: 'uppercase',
+
     color: '#878787',
   },
   totalText: {

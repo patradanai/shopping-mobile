@@ -52,7 +52,7 @@ const CartStack = () => {
       <Stack.Screen
         name="cart"
         component={CartScreen}
-        options={{headerTitle: 'Cart'}}
+        options={{headerTitle: 'CartShopping'}}
       />
       <Stack.Screen
         name="checkout"

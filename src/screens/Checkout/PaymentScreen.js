@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: 10,
+    backgroundColor: '#f4f4f4',
   },
   containerButton: {
     backgroundColor: 'transparent',

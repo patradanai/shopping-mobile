@@ -2,7 +2,7 @@
 import React, {useRef} from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {View, StyleSheet, ScrollView, Dimensions} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import {Text, Button, Icon} from 'react-native-elements';
 import DeliveryMethodItem from '../../components/DeliveryMethodItem';
 import SwitchLabel from '../../components/SwitchLabel';

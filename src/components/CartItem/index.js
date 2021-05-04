@@ -3,7 +3,7 @@ import React from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import {Text, Image, Icon} from 'react-native-elements';
 
-var width = Dimensions.get('window').width; //full width
+const width = Dimensions.get('window').width; //full width
 
 const CartItem = props => {
   return (

@@ -18,8 +18,19 @@ export const setToken = dispatch => {
 
 export const setProfile = dispatch => {
   return data => {
-    console.log(data);
     return dispatch({type: 'SET_PROFILE', payload: data});
+  };
+};
+
+export const setWishlist = dispatch => {
+  return data => {
+    return dispatch({type: 'SET_WISHLIST', payload: data});
+  };
+};
+
+export const setCart = dispatch => {
+  return data => {
+    return dispatch({type: 'SET_CART', payload: data});
   };
 };
 
@@ -31,6 +42,10 @@ const reducer = (state, action) => {
       return {...state, token: action.payload};
     case 'SET_PROFILE':
       return {...state, profile: action.payload};
+    case 'SET_WISHLIST':
+      return {...state, wishlist: [...state.wishlist, action.payload]};
+    case 'SET_CART':
+      return {...state, cart: [...state.cart, action.payload]};
     default:
       return state;
   }
@@ -38,6 +53,6 @@ const reducer = (state, action) => {
 
 export const {Context, Provider} = crateContext(
   reducer,
-  {setToken, setProfile},
+  {setToken, setProfile, setWishlist, setCart},
   initialStores,
 );

@@ -42,7 +42,9 @@ const ItemScreen = ({route, navigation}) => {
 
   return (
     <View style={styles.container}>
+      {/* Loading */}
       <Loading state={isLoading} />
+
       {/* Product */}
       <View style={styles.containerItem}>
         <Text h3 style={{fontWeight: 'bold', marginTop: 10}}>
@@ -65,6 +67,8 @@ const ItemScreen = ({route, navigation}) => {
           ${product?.price}
         </Text>
       </View>
+
+      {/* Add to Cart and Wishlist */}
       <View style={styles.containerBottom}>
         <Button
           title="Add to Cart"

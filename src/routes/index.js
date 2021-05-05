@@ -90,9 +90,9 @@ const AccountStack = () => {
         options={{headerTitle: 'Order History'}}
       />
       <Stack.Screen
-        name="ordertracking"
+        name="wishlist"
         component={OrderTrackingScreen}
-        options={{headerTitle: 'Order Tracking'}}
+        options={{headerTitle: 'Wishlist'}}
       />
     </Stack.Navigator>
   );

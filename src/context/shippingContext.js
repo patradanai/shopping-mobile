@@ -4,6 +4,8 @@ import crateContext from './createContext';
 const initialStores = {
   token: '',
   profile: null,
+  cart: null,
+  wishlist: null,
 };
 
 // Action

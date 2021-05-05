@@ -1,11 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useContext, useState} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Input, Button} from 'react-native-elements';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {Context} from '../context/shippingContext';
+import Loading from '../components/Loading';
+import Axios from '../utils/lib/api/shipping';
 
-const AddressScreen = ({navigation}) => {
+const AddressScreen = ({route, navigation}) => {
+  const context = useContext(Context);
+  const [isLoading, setIsLoading] = useState(null);
+  const {address, profile} = route.params;
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -16,17 +23,19 @@ const AddressScreen = ({navigation}) => {
     });
   }, [navigation]);
 
+  console.log(address);
   return (
     <View style={styles.container}>
       <ScrollView style={{flex: 1}}>
         <Formik
+          enableReinitialize={true}
           initialValues={{
-            name: '',
-            phone: '',
-            province: '',
-            city: '',
-            postcode: '',
-            address: '',
+            name: profile?.fname + ' ' + profile?.lname || '',
+            phone: profile?.phone || '',
+            province: address?.province || '',
+            city: address?.city || '',
+            postcode: address?.postcode || '',
+            address: address?.address || '',
           }}
           validationSchema={Yup.object().shape({
             name: Yup.string().required(),
@@ -36,9 +45,39 @@ const AddressScreen = ({navigation}) => {
             postcode: Yup.string().required(),
             address: Yup.string().required(),
           })}
-          onSubmit={values => {}}>
+          onSubmit={values => {
+            const token = context.state?.token;
+            if (token) {
+              setIsLoading(true);
+              setTimeout(() => {
+                Axios.put(
+                  '/auth/address/edit',
+                  {
+                    name: values.name,
+                    phone: values.phone,
+                    province: values.province,
+                    postcode: values.postcode,
+                    address: values.address,
+                  },
+                  {headers: {authorization: `Bearer ${token}`}},
+                )
+                  .then(res => {
+                    setIsLoading(false);
+                    navigation.goBack();
+                  })
+                  .catch(err => {
+                    setIsLoading(false);
+                    console.log(err);
+                  });
+              }, 500);
+            }
+          }}>
           {({handleChange, handleBlur, handleSubmit, values, errors}) => (
             <View>
+              {/* Loading */}
+              <Loading state={isLoading} />
+
+              {/* Form */}
               <Input
                 name="name"
                 placeholder="Full Name"

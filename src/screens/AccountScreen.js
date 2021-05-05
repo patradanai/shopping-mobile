@@ -35,7 +35,7 @@ const listAccount = [
   {
     name: 'Wishlist',
     avatar_url: <Icon name="receipt-outline" type="ionicon" />,
-    pageName: 'ordertracking',
+    pageName: 'wishlist',
   },
 ];
 
@@ -85,10 +85,13 @@ const Account = ({navigation}) => {
         <Avatar
           size={90}
           rounded
-          source={{
-            uri:
-              'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-          }}
+          source={
+            context?.state?.profile?.imageSrc
+              ? {
+                  uri: context?.state?.profile?.imageSrc,
+                }
+              : require('../assets/image/avatar.png')
+          }
         />
         {context?.state?.profile ? (
           <View style={{paddingHorizontal: 20}}>
@@ -111,7 +114,12 @@ const Account = ({navigation}) => {
       <ScrollView
         style={{flex: 1}}
         refreshControl={
-          <RefreshControl onRefresh={fetchProfile} refreshing={isLoading} />
+          <RefreshControl
+            onRefresh={fetchProfile}
+            title="Pull to Refresh"
+            refreshing={false}
+            style={{backgroundColor: 'transparent'}}
+          />
         }>
         <View style={styles.listContainer}>
           <Text style={styles.textSubTitle}>Account</Text>
@@ -122,6 +130,7 @@ const Account = ({navigation}) => {
               onPressList={() =>
                 navigation.navigate(l.pageName, {
                   profile: context?.state?.profile,
+                  address: context?.state?.profile?.Address,
                 })
               }
             />

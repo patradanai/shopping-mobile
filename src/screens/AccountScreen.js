@@ -1,8 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useCallback} from 'react';
 import {Context} from '../context/shippingContext';
-import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  RefreshControl,
+} from 'react-native';
 import {Text, Avatar, Icon} from 'react-native-elements';
 import AccountList from '../components/AccountItem';
 import Loading from '../components/Loading';
@@ -47,23 +53,27 @@ const listMore = [
 const Account = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const context = useContext(Context);
+
+  const fetchProfile = useCallback(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      Axios.get('/auth/profile', {
+        headers: {authorization: `Bearer ${context.state.token}`},
+      })
+        .then(res => {
+          //set Profle
+          context.setProfile(res.data);
+          // Loading
+          setIsLoading(false);
+        })
+        .catch(err => console.log(err));
+    }, 500);
+  }, []);
+
   // Fetch Profile
   useEffect(() => {
     if (context.state.token) {
-      setIsLoading(true);
-      setTimeout(() => {
-        Axios.get('/auth/profile', {
-          headers: {authorization: `Bearer ${context.state.token}`},
-        })
-          .then(res => {
-            //set Profle
-            context.setProfile(res.data);
-            // Loading
-            setIsLoading(false);
-            console.log(res.data);
-          })
-          .catch(err => console.log(err));
-      }, 500);
+      fetchProfile();
     }
   }, []);
 
@@ -98,14 +108,22 @@ const Account = ({navigation}) => {
       </View>
 
       {/* List Container Account */}
-      <ScrollView style={{flex: 1}}>
+      <ScrollView
+        style={{flex: 1}}
+        refreshControl={
+          <RefreshControl onRefresh={fetchProfile} refreshing={isLoading} />
+        }>
         <View style={styles.listContainer}>
           <Text style={styles.textSubTitle}>Account</Text>
           {listAccount.map((l, i) => (
             <AccountList
               key={i}
               data={l}
-              onPressList={() => navigation.navigate(l.pageName)}
+              onPressList={() =>
+                navigation.navigate(l.pageName, {
+                  profile: context?.state?.profile,
+                })
+              }
             />
           ))}
         </View>

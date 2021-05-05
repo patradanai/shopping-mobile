@@ -1,16 +1,24 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Text, Input, Button, Avatar, Icon} from 'react-native-elements';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {Context} from '../context/shippingContext';
+import Loading from '../components/Loading';
+import Axios from '../utils/lib/api/shipping';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({route, navigation}) => {
+  const context = useContext(Context);
+  const [isLoading, setIsLoading] = useState(false);
+  const {profile} = route.params;
   const initialValues = {
-    email: '',
-    phone: '',
-    name: '',
+    email: profile.email || '',
+    phone: profile.phone || '',
+    fname: profile.fname || '',
+    lname: profile.lname || '',
   };
+
   return (
     <View style={styles.container}>
       {/* Container Card */}
@@ -20,30 +28,70 @@ const ProfileScreen = () => {
             rounded
             title="PN"
             size={120}
-            source={{
-              uri:
-                'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-            }}>
+            source={
+              profile?.imageSrc
+                ? {
+                    uri: profile?.imageSrc,
+                  }
+                : require('../assets/image/avatar.png')
+            }>
             <Avatar.Accessory size={35} />
           </Avatar>
         </View>
         <Formik
+          enableReinitialize={true}
           initialValues={initialValues}
           validationSchema={Yup.object().shape({
-            name: Yup.string().required('Please fill your name'),
+            fname: Yup.string().required('Please fill your name'),
+            lname: Yup.string().required('Please fill your name'),
             phone: Yup.string().required('Please fill your phone'),
             email: Yup.string().email().required('Please fill your email'),
-          })}>
+          })}
+          onSubmit={values => {
+            setIsLoading(true);
+            // Delay
+            setTimeout(() => {
+              if (context.state.token) {
+                Axios.put(
+                  '/auth/profile/edit',
+                  {
+                    fname: values.fname,
+                    lname: values.lname,
+                    phone: values.phone,
+                    email: values.email,
+                  },
+                  {headers: {authorization: `Bearer ${context.state.token}`}},
+                )
+                  .then(res => {
+                    setIsLoading(false);
+                    navigation.goBack();
+                  })
+                  .catch(err => {
+                    console.log(err.response.data);
+                    setIsLoading(false);
+                  });
+              }
+            }, 300);
+          }}>
           {({values, errors, handleChange, handleBlur, handleSubmit}) => (
             <View style={{width: '100%'}}>
               <Input
                 label="Name"
                 inputContainerStyle={styles.inputContianer}
                 rightIcon={<Icon name="person-circle-outline" type="ionicon" />}
-                onChangeText={handleChange('name')}
-                onBlur={handleBlur('name')}
-                value={values.name}
-                errorMessage={errors.name}
+                onChangeText={handleChange('fname')}
+                onBlur={handleBlur('fname')}
+                value={values.fname}
+                errorMessage={errors.fname}
+              />
+              <Input
+                label="Name"
+                inputContainerStyle={styles.inputContianer}
+                rightIcon={<Icon name="person-circle-outline" type="ionicon" />}
+                onChangeText={handleChange('lname')}
+                onBlur={handleBlur('lname')}
+                value={values.lname}
+                errorMessage={errors.lname}
               />
               <Input
                 label="Phone"

@@ -39,9 +39,9 @@ const OrderScreen = () => {
   const renderScene = ({route, jumpTo}) => {
     switch (route.key) {
       case 'order':
-        return <PlaceOrderScreen order={orders} />;
-      case 'delivery':
         return <ShippingOrderScreen order={orders} />;
+      case 'delivery':
+        return <PlaceOrderScreen order={orders} />;
       case 'complete':
         return <CompletedOrderScreen order={orders} />;
       default:

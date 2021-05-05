@@ -1,8 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import {Context} from '../context/shippingContext';
 import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import {Text, Avatar, Icon} from 'react-native-elements';
 import AccountList from '../components/AccountItem';
+import Axios from '../utils/lib/api/shipping';
 
 const width = Dimensions.get('window').width; //full width
 
@@ -41,6 +44,20 @@ const listMore = [
 ];
 
 const Account = ({navigation}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const context = useContext(Context);
+  // Fetch Profile
+  useEffect(() => {
+    if (context.state.token) {
+      console.log(context.state.token);
+      Axios.get('/auth/profile', {
+        headers: {authorization: `Bearer ${context.state.token}`},
+      })
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
+    }
+  }, []);
+
   return (
     <View style={styles.container}>
       {/* Header Container */}

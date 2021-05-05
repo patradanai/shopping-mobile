@@ -1,13 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState, useContext} from 'react';
-import {Provider} from '../context/shippingContext';
+import {Context} from '../context/shippingContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
-import {Context} from '../context/shippingContext';
 
 import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
@@ -156,41 +155,39 @@ const Routes = () => {
   };
 
   useEffect(() => {
-    setTimeout(async () => {
-      await getToken();
+    setTimeout(() => {
+      getToken();
     }, 1000);
   }, []);
   return (
-    <Provider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName={isToken ? 'signin' : 'tab'}>
-          {isToken ? (
-            <>
-              <Stack.Screen
-                name="signin"
-                component={SigninScreen}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="signup"
-                component={SignupScreen}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="loading"
-                component={LoadingScreen}
-                options={{headerShown: false}}
-              />
-            </>
-          ) : null}
-          <Stack.Screen
-            name="tab"
-            component={TabScreen}
-            options={{headerShown: false}}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={isToken ? 'signin' : 'tab'}>
+        {isToken ? (
+          <>
+            <Stack.Screen
+              name="signin"
+              component={SigninScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="signup"
+              component={SignupScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="loading"
+              component={LoadingScreen}
+              options={{headerShown: false}}
+            />
+          </>
+        ) : null}
+        <Stack.Screen
+          name="tab"
+          component={TabScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

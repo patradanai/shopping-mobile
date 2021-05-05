@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
+import {Provider} from '../context/shippingContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -155,34 +156,36 @@ const Routes = () => {
     }, 1000);
   }, []);
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={isToken ? 'signin' : 'tab'}>
-        {isToken ? (
-          <>
-            <Stack.Screen
-              name="signin"
-              component={SigninScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="signup"
-              component={SignupScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="loading"
-              component={LoadingScreen}
-              options={{headerShown: false}}
-            />
-          </>
-        ) : null}
-        <Stack.Screen
-          name="tab"
-          component={TabScreen}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={isToken ? 'signin' : 'tab'}>
+          {isToken ? (
+            <>
+              <Stack.Screen
+                name="signin"
+                component={SigninScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="signup"
+                component={SignupScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="loading"
+                component={LoadingScreen}
+                options={{headerShown: false}}
+              />
+            </>
+          ) : null}
+          <Stack.Screen
+            name="tab"
+            component={TabScreen}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

@@ -5,14 +5,16 @@ import {Context} from '../context/shippingContext';
 import WishList from '../components/WishList';
 import WishListItem from '../components/WishListItem';
 
-const WishListScreen = () => {
+const WishListScreen = ({navigation}) => {
   const context = useContext(Context);
 
   if (!context.state?.wishlist?.length > 0) {
     return <WishList />;
   }
 
-  const onClickProduct = () => {};
+  const onClickProduct = productId => {
+    navigation.navigate('item', {productId: productId});
+  };
 
   return (
     <View style={styles.container}>

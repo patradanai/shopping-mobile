@@ -11,16 +11,21 @@ const CartItem = props => {
       {/* Image */}
       <Image
         style={styles.image}
-        source={{
-          uri:
-            'https://cdn.ambientedirect.com/chameleon/mediapool/thumbs/0/47/Gubi_Beetle-Chair-mit-Stoff-und-Gestell-schwarz_1515x1515-ID572442-a40195c7e75264b6a6309e1e0ffa09f7.jpg',
-        }}
+        source={
+          props?.product?.imageSrc
+            ? {uri: props?.wishlist?.imageSrc}
+            : require('../../assets/image/no_product.png')
+        }
       />
       {/* title , category, buttom */}
       <View style={styles.detailsContainer}>
         <View>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>Pink Chair</Text>
-          <Text style={{fontSize: 15, color: '#a7a7a7'}}>Modern</Text>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+            {props.product.name}
+          </Text>
+          <Text style={{fontSize: 15, color: '#a7a7a7'}}>
+            {props.product.Category?.name}
+          </Text>
         </View>
         <View style={styles.quantityContainer}>
           <Icon
@@ -31,7 +36,7 @@ const CartItem = props => {
             color="#f7ba6f"
           />
           <Text style={{fontSize: 15, fontWeight: 'bold', marginHorizontal: 5}}>
-            1
+            {props.product?.CartProduct?.quantity}
           </Text>
           <Icon
             reverse
@@ -46,7 +51,9 @@ const CartItem = props => {
       {/* cancel & price */}
       <View style={styles.lastContainer}>
         <Icon name="closesquare" type="antdesign" size={25} color="#000" />
-        <Text style={{fontSize: 20, fontWeight: 'bold'}}>300$</Text>
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+          {props.product?.CartProduct?.quantity * props.product?.price}$
+        </Text>
       </View>
     </View>
   );
@@ -54,8 +61,9 @@ const CartItem = props => {
 
 const styles = StyleSheet.create({
   image: {
-    width: width / 3,
-    height: width / 3,
+    width: width * 0.3,
+    resizeMode: 'cover',
+    aspectRatio: 1,
   },
   container: {
     width: width - 20,
@@ -65,9 +73,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderColor: '#cccccc',
     paddingBottom: 10,
+    justifyContent: 'center',
   },
   detailsContainer: {
-    width: width * 0.45,
+    width: width * 0.4,
     paddingVertical: 10,
     justifyContent: 'space-between',
   },
@@ -76,6 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   lastContainer: {
+    width: width * 0.2,
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     paddingBottom: 20,

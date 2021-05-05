@@ -1,6 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {Text, Image, Icon} from 'react-native-elements';
 
 const width = Dimensions.get('window').width; //full width
@@ -8,44 +13,47 @@ const height = Dimensions.get('window').height; //full width
 
 const WishListItem = props => {
   return (
-    <View style={styles.container}>
-      {/* Image */}
-      <Image
-        style={styles.image}
-        source={
-          props?.wishlist?.imageSrc
-            ? {uri: props?.wishlist?.imageSrc}
-            : require('../../assets/image/no_product.png')
-        }
-      />
-      {/* title , category, buttom */}
-      <View style={styles.detailsContainer}>
-        <View>
-          <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-            {props?.wishlist?.name}
-          </Text>
-          <Text style={{fontSize: 13, color: '#a7a7a7'}}>
-            {props?.wishlist?.Category?.name}
-          </Text>
-        </View>
-        <View style={styles.quantityContainer}>
-          <Text style={{fontSize: 13, fontWeight: 'bold', marginHorizontal: 5}}>
-            {props?.wishlist?.price}$
-          </Text>
-        </View>
-      </View>
-
-      {/* cancel & price */}
-      <View style={styles.lastContainer}>
-        <Icon
-          name="cart-outline"
-          type="ionicon"
-          reverse
-          color="orange"
-          size={20}
+    <TouchableWithoutFeedback onPress={() => props.onClick(props.wishlist?.id)}>
+      <View style={styles.container}>
+        {/* Image */}
+        <Image
+          style={styles.image}
+          source={
+            props?.wishlist?.imageSrc
+              ? {uri: props?.wishlist?.imageSrc}
+              : require('../../assets/image/no_product.png')
+          }
         />
+        {/* title , category, buttom */}
+        <View style={styles.detailsContainer}>
+          <View>
+            <Text style={{fontSize: 15, fontWeight: 'bold'}}>
+              {props?.wishlist?.name}
+            </Text>
+            <Text style={{fontSize: 13, color: '#a7a7a7'}}>
+              {props?.wishlist?.Category?.name}
+            </Text>
+          </View>
+          <View style={styles.quantityContainer}>
+            <Text
+              style={{fontSize: 13, fontWeight: 'bold', marginHorizontal: 5}}>
+              {props?.wishlist?.price}฿
+            </Text>
+          </View>
+        </View>
+
+        {/* cancel & price */}
+        <View style={styles.lastContainer}>
+          <Icon
+            name="cart-outline"
+            type="ionicon"
+            reverse
+            color="orange"
+            size={20}
+          />
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

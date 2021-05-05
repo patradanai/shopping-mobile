@@ -46,6 +46,30 @@ const ItemScreen = ({route, navigation}) => {
     }
   };
 
+  const addCartProduct = () => {
+    const token = context.state.token;
+
+    if (token && productId) {
+      setIsLoading(true);
+      setTimeout(() => {
+        Axios.post(
+          '/db_cart/cart',
+          {
+            productId: productId,
+          },
+          {headers: {authorization: `Bearer ${token}`}},
+        )
+          .then(res => {
+            setIsLoading(false);
+          })
+          .catch(err => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      }, 500);
+    }
+  };
+
   // if (isLoading) {
   //   return <Loading state={isLoading} />;
   // }
@@ -81,6 +105,7 @@ const ItemScreen = ({route, navigation}) => {
       {/* Add to Cart and Wishlist */}
       <View style={styles.containerBottom}>
         <Button
+          onPress={addCartProduct}
           title="Add to Cart"
           buttonStyle={[
             styles.buttonCart,

@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {Button, Text} from 'react-native-elements';
 import {Context} from '../context/shippingContext';
 import WishList from '../components/WishList';
-import WishListItem from '../components/OrderItem';
+import WishListItem from '../components/WishListItem';
 
 const WishListScreen = () => {
   const context = useContext(Context);
@@ -11,10 +11,13 @@ const WishListScreen = () => {
   if (!context.state?.wishlist?.length > 0) {
     return <WishList />;
   }
+
+  const onClickProduct = () => {};
+
   return (
     <View style={styles.container}>
       {context.state?.wishlist.map((data, index) => (
-        <WishListItem />
+        <WishListItem wishlist={data} key={index} onClick={onClickProduct} />
       ))}
     </View>
   );

@@ -19,7 +19,6 @@ const FormAddress = props => {
 
 const styles = StyleSheet.create({
   inputContainer: {
-    flex: 1,
     backgroundColor: '#edeef2',
     justifyContent: 'center',
     borderRadius: 5,

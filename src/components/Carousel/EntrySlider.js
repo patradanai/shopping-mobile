@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Platform, Dimensions} from 'react-native';
-import {Image, Text} from 'react-native-elements';
+import {Image} from 'react-native-elements';
 import {ParallaxImage} from 'react-native-snap-carousel';
 
 const sliderWidth = Dimensions.get('window').width;

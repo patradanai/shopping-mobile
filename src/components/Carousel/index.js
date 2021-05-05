@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Dimensions, View, StyleSheet, Animated} from 'react-native';
+import {Dimensions, View, StyleSheet} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import EntrySlider from './EntrySlider';
 // Width

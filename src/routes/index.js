@@ -136,9 +136,9 @@ const TabScreen = () => {
 const Routes = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="tab">
+      <Stack.Navigator initialRouteName="signin">
         <Stack.Screen
-          name="sigin"
+          name="signin"
           component={SigninScreen}
           options={{headerShown: false}}
         />

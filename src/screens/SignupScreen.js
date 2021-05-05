@@ -1,10 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 import {View, StyleSheet} from 'react-native';
 import {Button, Text, Input} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Circle} from '../utils/lib/circle';
+import InputForm from '../components/FormAddress';
+
+const initialValues = {
+  name: '',
+  email: '',
+  password: '',
+};
 
 const SignupScreen = ({navigation}) => {
   return (
@@ -19,21 +28,52 @@ const SignupScreen = ({navigation}) => {
         <Circle size={100} color="#ff5c2c" position={styles.circleBackdrop2} />
         <Circle size={300} color="#ff5c2c" position={styles.circleBackdrop3} />
         <View style={styles.headerTextContainer}>
-          <Text style={styles.headerText}>SignupScreen</Text>
+          <Text style={styles.headerText}>Signup</Text>
         </View>
-        <Input
-          inputContainerStyle={styles.inputContainer}
-          placeholder="Full Name"
-        />
-        <Input
-          inputContainerStyle={styles.inputContainer}
-          placeholder="Eamil"
-        />
-        <Input
-          inputContainerStyle={styles.inputContainer}
-          placeholder="Password"
-        />
-        <Button title="SignupScreen" buttonStyle={styles.buttonSignin} />
+        {/* Form */}
+        <Formik
+          initialValues={initialValues}
+          validationSchema={Yup.object().shape({
+            email: Yup.string().email().required(),
+            password: Yup.string().required(),
+          })}
+          onSubmit={values => {}}>
+          {({values, handleBlur, handleChange, errors, handleSubmit}) => (
+            <>
+              <InputForm
+                name={'name'}
+                placeholder="Full name"
+                error={errors.email}
+                value={values.email}
+                handleChange={handleChange('name')}
+                handleBlur={handleBlur('name')}
+              />
+              <InputForm
+                name={'email'}
+                placeholder="Email"
+                error={errors.email}
+                value={values.email}
+                handleChange={handleChange('email')}
+                handleBlur={handleBlur('email')}
+              />
+              <InputForm
+                name={'password'}
+                placeholder="Password"
+                error={errors.email}
+                value={values.email}
+                handleChange={handleChange('password')}
+                handleBlur={handleBlur('password')}
+              />
+
+              <Button
+                title="Signup"
+                buttonStyle={styles.buttonSignin}
+                containerStyle={{marginTop: 10}}
+                onPress={handleSubmit}
+              />
+            </>
+          )}
+        </Formik>
         <View style={styles.containerButtom}>
           <Text style={{color: '#c9c5c5'}}>If you have a member. </Text>
           <TouchableOpacity onPress={() => navigation.navigate('signin')}>

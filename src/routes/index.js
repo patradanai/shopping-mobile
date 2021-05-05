@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -134,24 +135,47 @@ const TabScreen = () => {
 };
 
 const Routes = () => {
+  const [isToken, setToken] = useState(null);
+  // Get token
+  const getToken = async () => {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      if (value !== null) {
+        // value previously store
+        setToken(JSON.parse(value));
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(async () => {
+      await getToken();
+    }, 1000);
+  }, []);
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="signin">
-        <Stack.Screen
-          name="signin"
-          component={SigninScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="signup"
-          component={SignupScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="loading"
-          component={LoadingScreen}
-          options={{headerShown: false}}
-        />
+      <Stack.Navigator initialRouteName={isToken ? 'signin' : 'tab'}>
+        {isToken ? (
+          <>
+            <Stack.Screen
+              name="signin"
+              component={SigninScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="signup"
+              component={SignupScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="loading"
+              component={LoadingScreen}
+              options={{headerShown: false}}
+            />
+          </>
+        ) : null}
         <Stack.Screen
           name="tab"
           component={TabScreen}

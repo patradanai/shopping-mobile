@@ -55,6 +55,8 @@ const SignupScreen = ({navigation}) => {
                 value={values.email}
                 handleChange={handleChange('email')}
                 handleBlur={handleBlur('email')}
+                keyboardType="email-address"
+                autoCapitalize="none"
               />
               <InputForm
                 name={'password'}
@@ -63,6 +65,7 @@ const SignupScreen = ({navigation}) => {
                 value={values.email}
                 handleChange={handleChange('password')}
                 handleBlur={handleBlur('password')}
+                secureTextEntry={true}
               />
 
               <Button

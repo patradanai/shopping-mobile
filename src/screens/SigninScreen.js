@@ -2,16 +2,14 @@
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Button, Text, Input} from 'react-native-elements';
+import {Button, Text} from 'react-native-elements';
 import {Circle} from '../utils/lib/circle';
 import InputForm from '../components/FormAddress';
+import Axios from '../utils/lib/api/shipping';
+import Loading from '../components/Loading';
 
 const initialValue = {
   email: '',
@@ -21,13 +19,15 @@ const initialValue = {
 const SignupScreen = ({navigation}) => {
   const [isLoading, setIsloading] = useState(false);
 
-  if (isLoading) {
-    return (
-      <View style={{flex: 1}}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
+  // Token Storage
+  const storeToken = async token => {
+    try {
+      const value = JSON.stringify(token);
+      await AsyncStorage.setItem('token', value);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <SafeAreaView
@@ -36,6 +36,7 @@ const SignupScreen = ({navigation}) => {
         backgroundColor: '#fff',
       }}>
       <View style={styles.container}>
+        <Loading state={isLoading} />
         {/* Backdrop */}
         <Circle size={300} color="#ff5c2c" position={styles.circleBackdrop1} />
         <Circle size={100} color="#ff5c2c" position={styles.circleBackdrop2} />
@@ -51,7 +52,32 @@ const SignupScreen = ({navigation}) => {
             email: Yup.string().email().required(),
             password: Yup.string().required(),
           })}
-          onSubmit={values => {}}>
+          onSubmit={values => {
+            setIsloading(true);
+            setTimeout(async () => {
+              try {
+                const res = await Axios.post(
+                  '/auth/signin',
+                  {
+                    username: values.email,
+                    password: values.password,
+                  },
+                  {},
+                );
+
+                if (res.status === 200) {
+                  storeToken(res.data.token);
+                  setIsloading(false);
+                }
+
+                // redirect Screen
+                navigation.navigate('loading');
+              } catch (err) {
+                console.log(err.response.request._response);
+                setIsloading(false);
+              }
+            }, 500);
+          }}>
           {({values, handleBlur, handleChange, errors, handleSubmit}) => (
             <>
               <View style={styles.containerInput}>
@@ -73,6 +99,9 @@ const SignupScreen = ({navigation}) => {
                   value={values.email}
                   handleChange={handleChange('email')}
                   handleBlur={handleBlur('email')}
+                  keyboardType="email-address"
+                  returnKeyType="next"
+                  autoCapitalize="none"
                 />
                 <InputForm
                   name={'password'}
@@ -81,6 +110,7 @@ const SignupScreen = ({navigation}) => {
                   value={values.password}
                   handleChange={handleChange('password')}
                   handleBlur={handleBlur('password')}
+                  secureTextEntry={true}
                 />
               </View>
               <Button
@@ -88,6 +118,7 @@ const SignupScreen = ({navigation}) => {
                 titleStyle={{fontWeight: '500'}}
                 containerStyle={{marginTop: 10}}
                 buttonStyle={styles.buttonSignin}
+                onPress={handleSubmit}
               />
             </>
           )}

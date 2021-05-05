@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useLayoutEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect, useContext} from 'react';
+import {Context} from '../context/shippingContext';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import {Text, Button, Icon, Image} from 'react-native-elements';
 import Loading from '../components/Loading';
@@ -8,9 +9,11 @@ import Axios from '../utils/lib/api/shipping';
 const width = Dimensions.get('window').width;
 
 const ItemScreen = ({route, navigation}) => {
+  const context = useContext(Context);
   const {productId} = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const [product, setProduct] = useState(null);
+
   // set Layout
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -35,6 +38,13 @@ const ItemScreen = ({route, navigation}) => {
       }, 500);
     }
   }, [productId]);
+
+  const addWishList = () => {
+    if (product) {
+      // Add product to wish
+      context.setWishlist(product);
+    }
+  };
 
   // if (isLoading) {
   //   return <Loading state={isLoading} />;
@@ -78,6 +88,7 @@ const ItemScreen = ({route, navigation}) => {
           ]}
         />
         <Button
+          onPress={addWishList}
           icon={<Icon name="heart-outline" type="ionicon" color="#fff" />}
           buttonStyle={[
             styles.buttonCart,

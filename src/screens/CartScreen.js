@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useCallback} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Button, Text} from 'react-native-elements';
 import {Context} from '../context/shippingContext';
@@ -12,10 +12,9 @@ import Axios from '../utils/lib/api/shipping';
 const CartScreen = ({navigation}) => {
   const [isLoading, setIsloading] = useState(false);
   const context = useContext(Context);
+  const token = context.state.token;
 
   const fetchGetCart = () => {
-    const token = context.state.token;
-
     if (token) {
       setIsloading(true);
       Axios.get('/db_cart/cart', {
@@ -24,7 +23,7 @@ const CartScreen = ({navigation}) => {
         .then(res => {
           //set Cart
           context.setCart(res.data.data);
-          console.log(res.data.data);
+          console.log(res.data.data?.Products[0]?.CartProduct?.quantity);
           setIsloading(false);
         })
         .catch(err => {
@@ -34,15 +33,20 @@ const CartScreen = ({navigation}) => {
     }
   };
 
-  const postCart = () => {
-    const token = context.state.token;
-
+  const updateQuantityProduct = (productId, quantity) => {
     if (token) {
       Axios.post(
         '/db_cart/cart',
-        {},
+        {productId: productId, quantity: quantity},
         {headers: {authorization: `Bearer ${token}`}},
-      );
+      )
+        .then(() => {
+          fetchGetCart();
+        })
+        .catch(err => {
+          console.log(err);
+          setIsloading(false);
+        });
     }
   };
 
@@ -51,11 +55,9 @@ const CartScreen = ({navigation}) => {
     fetchGetCart();
   }, [navigation]);
 
-  if (!context.state?.cart[0]?.subTotal > 0) {
+  if (!context.state?.cart?.Products.length > 0) {
     return <EmptyCart />;
   }
-
-  const product = context.state?.cart[0];
 
   return (
     <View style={styles.container}>
@@ -65,8 +67,12 @@ const CartScreen = ({navigation}) => {
       {/* ListCart */}
       <ScrollView>
         <View>
-          {product?.Products.map((data, index) => (
-            <CartItem product={data} key={index} />
+          {context.state?.cart?.Products.map((data, index) => (
+            <CartItem
+              product={data}
+              key={index}
+              handleQuantity={updateQuantityProduct}
+            />
           ))}
         </View>
       </ScrollView>
@@ -76,7 +82,7 @@ const CartScreen = ({navigation}) => {
         {/* Total */}
         <View style={styles.toalContainer}>
           <Text style={styles.totalText}>Total:</Text>
-          <Text style={styles.totalText}>{product.subTotal}$</Text>
+          <Text style={styles.totalText}>{context.state?.cart.subTotal}$</Text>
         </View>
         <Button
           title="Checkout"

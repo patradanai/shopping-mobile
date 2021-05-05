@@ -13,7 +13,7 @@ const CartItem = props => {
         style={styles.image}
         source={
           props?.product?.imageSrc
-            ? {uri: props?.wishlist?.imageSrc}
+            ? {uri: props?.product?.imageSrc}
             : require('../../assets/image/no_product.png')
         }
       />
@@ -34,8 +34,16 @@ const CartItem = props => {
             type="antdesign"
             size={12}
             color="#f7ba6f"
+            onPress={() => props.handleQuantity(props.product?.id, -1)}
           />
-          <Text style={{fontSize: 15, fontWeight: 'bold', marginHorizontal: 5}}>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+              marginHorizontal: 5,
+              width: 20,
+              textAlign: 'center',
+            }}>
             {props.product?.CartProduct?.quantity}
           </Text>
           <Icon
@@ -44,6 +52,7 @@ const CartItem = props => {
             type="antdesign"
             size={12}
             color="#f7ba6f"
+            onPress={() => props.handleQuantity(props.product?.id, 1)}
           />
         </View>
       </View>
@@ -78,6 +87,7 @@ const styles = StyleSheet.create({
   detailsContainer: {
     width: width * 0.4,
     paddingVertical: 10,
+    paddingLeft: 10,
     justifyContent: 'space-between',
   },
   quantityContainer: {

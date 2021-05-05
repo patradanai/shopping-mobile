@@ -45,7 +45,7 @@ const reducer = (state, action) => {
     case 'SET_WISHLIST':
       return {...state, wishlist: [...state.wishlist, action.payload]};
     case 'SET_CART':
-      return {...state, cart: [...state.cart, action.payload]};
+      return {...state, cart: action.payload};
     default:
       return state;
   }

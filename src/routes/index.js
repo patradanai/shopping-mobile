@@ -18,7 +18,7 @@ import ItemScreen from '../screens/ItemScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import AccountScreen from '../screens/AccountScreen';
 import OrderScreen from '../screens/Order/OrderScreen';
-import OrderTrackingScreen from '../screens/OrderTrackingScreen';
+import WishListScreen from '../screens/WishListScreen';
 import AddresScreen from '../screens/AddressScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
@@ -91,7 +91,7 @@ const AccountStack = () => {
       />
       <Stack.Screen
         name="wishlist"
-        component={OrderTrackingScreen}
+        component={WishListScreen}
         options={{headerTitle: 'Wishlist'}}
       />
     </Stack.Navigator>

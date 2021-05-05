@@ -1,10 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Button, Text} from 'react-native-elements';
+import {Context} from '../context/shippingContext';
+import EmptyCart from '../components/EmptyCart';
+import Loading from '../components/Loading';
 import CartItem from '../components/CartItem';
 
 const CartScreen = ({navigation}) => {
+  const context = useContext(Context);
+
+  if (!context.state?.cart?.length > 0) {
+    return <EmptyCart />;
+  }
   return (
     <View style={styles.container}>
       <ScrollView>

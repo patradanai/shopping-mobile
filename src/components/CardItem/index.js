@@ -9,27 +9,32 @@ const width = Dimensions.get('window').width; // Width Screen
 
 const CartItems = props => {
   return (
-    <TouchableOpacity onPress={() => props.navigation.navigate('item')}>
+    <TouchableOpacity
+      onPress={() =>
+        props.navigation.navigate('item', {productId: props.data.id})
+      }>
       <View style={styles.container}>
         {/* Image */}
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
-            source={{
-              uri:
-                'https://cdn.ambientedirect.com/chameleon/mediapool/thumbs/0/47/Gubi_Beetle-Chair-mit-Stoff-und-Gestell-schwarz_1515x1515-ID572442-a40195c7e75264b6a6309e1e0ffa09f7.jpg',
-            }}
+            loadingIndicatorSource
+            source={
+              props.data.imageSrc
+                ? {uri: props.data.imageSrc}
+                : require('../../assets/image/no_product.png')
+            }
           />
         </View>
         {/* Content */}
         <View style={styles.textContainer}>
           <Text numberOfLines={1} style={{fontSize: 18, fontWeight: '500'}}>
-            Modern Chair
+            {props.data.name}
           </Text>
           <Text
             numberOfLines={1}
             style={{fontSize: 15, fontWeight: '700', marginVertical: 1}}>
-            200$
+            {props.data.price}$
           </Text>
           <Text
             numberOfLines={1}
@@ -39,7 +44,7 @@ const CartItems = props => {
               color: '#a7a7a7',
               marginVertical: 1,
             }}>
-            Desc
+            {props.data.description}
           </Text>
         </View>
       </View>
@@ -59,11 +64,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 160,
     marginBottom: 5,
+    overflow: 'hidden',
   },
   image: {
     width: '100%',
     aspectRatio: 1,
-    resizeMode: 'center',
+    resizeMode: 'cover',
   },
   textContainer: {
     padding: 15,

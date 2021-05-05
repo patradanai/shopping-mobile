@@ -1,10 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Text} from 'react-native-elements';
 import CardItem from '../components/CardItem';
 import CategoryItem from '../components/CategoryItem';
 import CarouselItem from '../components/Carousel';
+import Axios from '../utils/lib/api/shipping';
 
 const carouselItems = [
   {
@@ -39,7 +40,15 @@ const carouselItems = [
   },
 ];
 
-const Home = ({navigation}) => {
+const Home = ({route, navigation}) => {
+  const [products, setProducts] = useState(null);
+  // Fectchinh Product
+  useEffect(() => {
+    Axios.get('/db_product/products')
+      .then(res => setProducts(res.data.data))
+      .catch(err => console.log(err));
+  }, []);
+
   return (
     <View style={styles.container}>
       <ScrollView style={{flex: 1}}>
@@ -67,12 +76,9 @@ const Home = ({navigation}) => {
           <Text style={styles.textHeader}>Products</Text>
 
           <View style={styles.itemContainer}>
-            <CardItem navigation={navigation} />
-            <CardItem navigation={navigation} />
-            <CardItem navigation={navigation} />
-            <CardItem navigation={navigation} />
-            <CardItem navigation={navigation} />
-            <CardItem navigation={navigation} />
+            {products?.map((data, index) => (
+              <CardItem navigation={navigation} key={index} data={data} />
+            ))}
           </View>
         </View>
       </ScrollView>

@@ -1,11 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {Provider} from '../context/shippingContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
+import {Context} from '../context/shippingContext';
 
 import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
@@ -136,6 +138,7 @@ const TabScreen = () => {
 };
 
 const Routes = () => {
+  const context = useContext(Context);
   const [isToken, setToken] = useState(null);
   // Get token
   const getToken = async () => {
@@ -143,7 +146,9 @@ const Routes = () => {
       const value = await AsyncStorage.getItem('token');
       if (value !== null) {
         // value previously store
-        setToken(JSON.parse(value));
+        const token = JSON.parse(value);
+        setToken(token);
+        context.setToken(token);
       }
     } catch (e) {
       // error reading value

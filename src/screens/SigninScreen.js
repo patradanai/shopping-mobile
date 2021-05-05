@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,6 +7,7 @@ import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button, Text} from 'react-native-elements';
 import {Circle} from '../utils/lib/circle';
+import {Context} from '../context/shippingContext';
 import InputForm from '../components/FormAddress';
 import Axios from '../utils/lib/api/shipping';
 import Loading from '../components/Loading';
@@ -17,10 +18,12 @@ const initialValue = {
 };
 
 const SignupScreen = ({navigation}) => {
+  const context = useContext(Context);
   const [isLoading, setIsloading] = useState(false);
 
   // Token Storage
   const storeToken = async token => {
+    context.setToken(token);
     try {
       const value = JSON.stringify(token);
       await AsyncStorage.setItem('token', value);

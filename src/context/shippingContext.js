@@ -9,7 +9,7 @@ const initalStores = {
 
 export const setToken = dispatch => {
   return data => {
-    return dispatch({type: 'SET_TOKEN', data});
+    return dispatch({type: 'SET_TOKEN', payload: data});
   };
 };
 
@@ -17,6 +17,8 @@ export const setToken = dispatch => {
 
 const reducer = (state, action) => {
   switch (action) {
+    case 'SET_TOKEN':
+      return {...state, token: action.payload};
     default:
       return state;
   }

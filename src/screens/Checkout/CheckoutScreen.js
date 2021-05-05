@@ -62,6 +62,7 @@ const CheckoutScreen = () => {
 
   return (
     <TabView
+      lazy
       swipeEnabled={false}
       navigationState={{index, routes}}
       renderScene={renderScene}

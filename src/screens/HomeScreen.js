@@ -8,24 +8,34 @@ import CarouselItem from '../components/Carousel';
 
 const carouselItems = [
   {
-    title: 'Item 1',
-    text: 'Text 1',
+    title: 'Favourites landscapes 1',
+    subtitle: 'Lorem ipsum dolor sit amet',
+    illustration: 'https://i.imgur.com/SsJmZ9jl.jpg',
   },
   {
-    title: 'Item 2',
-    text: 'Text 2',
+    title: 'Favourites landscapes 2',
+    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+    illustration: 'https://i.imgur.com/5tj6S7Ol.jpg',
   },
   {
-    title: 'Item 3',
-    text: 'Text 3',
+    title: 'Favourites landscapes 3',
+    subtitle: 'Lorem ipsum dolor sit amet et nuncat',
+    illustration: 'https://i.imgur.com/pmSqIFZl.jpg',
   },
   {
-    title: 'Item 4',
-    text: 'Text 4',
+    title: 'Favourites landscapes 4',
+    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+    illustration: 'https://i.imgur.com/cA8zoGel.jpg',
   },
   {
-    title: 'Item 5',
-    text: 'Text 5',
+    title: 'Favourites landscapes 5',
+    subtitle: 'Lorem ipsum dolor sit amet',
+    illustration: 'https://i.imgur.com/pewusMzl.jpg',
+  },
+  {
+    title: 'Favourites landscapes 6',
+    subtitle: 'Lorem ipsum dolor sit amet et nuncat',
+    illustration: 'https://i.imgur.com/l49aYS3l.jpg',
   },
 ];
 

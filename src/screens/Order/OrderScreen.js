@@ -41,6 +41,7 @@ const OrderScreen = () => {
 
   return (
     <TabView
+      lazy
       navigationState={{index, routes}}
       renderScene={renderScene}
       renderTabBar={renderTabBar}

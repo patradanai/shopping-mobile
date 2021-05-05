@@ -3,14 +3,21 @@ import crateContext from './createContext';
 // InitialStores
 const initialStores = {
   token: '',
+  profile: null,
 };
 
 // Action
 
 export const setToken = dispatch => {
   return data => {
-    console.log(data);
     return dispatch({type: 'SET_TOKEN', payload: data});
+  };
+};
+
+export const setProfile = dispatch => {
+  return data => {
+    console.log(data);
+    return dispatch({type: 'SET_PROFILE', payload: data});
   };
 };
 
@@ -20,6 +27,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_TOKEN':
       return {...state, token: action.payload};
+    case 'SET_PROFILE':
+      return {...state, profile: action.payload};
     default:
       return state;
   }
@@ -27,6 +36,6 @@ const reducer = (state, action) => {
 
 export const {Context, Provider} = crateContext(
   reducer,
-  {setToken},
+  {setToken, setProfile},
   initialStores,
 );

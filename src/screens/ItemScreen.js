@@ -1,39 +1,68 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useLayoutEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import {Text, Button, Icon, Image} from 'react-native-elements';
-
+import Loading from '../components/Loading';
+import Axios from '../utils/lib/api/shipping';
 // Get Width
 const width = Dimensions.get('window').width;
 
-const ItemScreen = ({navigation}) => {
+const ItemScreen = ({route, navigation}) => {
+  const {productId} = route.params;
+  const [isLoading, setIsLoading] = useState(false);
+  const [product, setProduct] = useState(null);
+  // set Layout
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: 'Product',
     });
   }, [navigation]);
 
+  // fetch product
+  useEffect(() => {
+    if (productId) {
+      setIsLoading(true);
+      setTimeout(() => {
+        Axios.get(`/db_product/product/${productId}`)
+          .then(res => {
+            setProduct(res.data.data);
+            setIsLoading(false);
+          })
+          .catch(err => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      }, 500);
+    }
+  }, [productId]);
+
+  // if (isLoading) {
+  //   return <Loading state={isLoading} />;
+  // }
+
   return (
     <View style={styles.container}>
+      <Loading state={isLoading} />
+      {/* Product */}
       <View style={styles.containerItem}>
         <Text h3 style={{fontWeight: 'bold', marginTop: 10}}>
-          Modern Chair
+          {product?.name}
         </Text>
         <Image
           style={styles.image}
-          source={{
-            uri:
-              'https://cdn.ambientedirect.com/chameleon/mediapool/thumbs/0/47/Gubi_Beetle-Chair-mit-Stoff-und-Gestell-schwarz_1515x1515-ID572442-a40195c7e75264b6a6309e1e0ffa09f7.jpg',
-          }}
+          source={
+            product?.imageSrc
+              ? {uri: product?.imageSrc}
+              : require('../assets/image/no_product.png')
+          }
         />
         <View style={{height: 120, width: '95%'}}>
           <Text numberOfLines={5} style={styles.textDesc}>
-            This chair can be used with at dinning table as a aside chair and as
-            outdoor chair for use at home or workplace.
+            {product?.description}
           </Text>
         </View>
         <Text h4 style={{fontWeight: 'bold'}}>
-          $300.00
+          ${product?.price}
         </Text>
       </View>
       <View style={styles.containerBottom}>
@@ -81,7 +110,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     aspectRatio: 1,
-    resizeMode: 'center',
+    resizeMode: 'cover',
   },
   textDesc: {
     fontSize: 16,

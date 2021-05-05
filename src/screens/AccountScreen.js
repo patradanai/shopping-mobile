@@ -5,6 +5,7 @@ import {Context} from '../context/shippingContext';
 import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import {Text, Avatar, Icon} from 'react-native-elements';
 import AccountList from '../components/AccountItem';
+import Loading from '../components/Loading';
 import Axios from '../utils/lib/api/shipping';
 
 const width = Dimensions.get('window').width; //full width
@@ -49,17 +50,26 @@ const Account = ({navigation}) => {
   // Fetch Profile
   useEffect(() => {
     if (context.state.token) {
-      console.log(context.state.token);
-      Axios.get('/auth/profile', {
-        headers: {authorization: `Bearer ${context.state.token}`},
-      })
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err));
+      setIsLoading(true);
+      setTimeout(() => {
+        Axios.get('/auth/profile', {
+          headers: {authorization: `Bearer ${context.state.token}`},
+        })
+          .then(res => {
+            //set Profle
+            context.setProfile(res.data);
+            // Loading
+            setIsLoading(false);
+            console.log(res.data);
+          })
+          .catch(err => console.log(err));
+      }, 500);
     }
   }, []);
 
   return (
     <View style={styles.container}>
+      <Loading state={isLoading} />
       {/* Header Container */}
       <View style={styles.headerContainer}>
         <Avatar
@@ -70,12 +80,21 @@ const Account = ({navigation}) => {
               'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
           }}
         />
-        <View style={{paddingHorizontal: 20}}>
-          <Text style={{fontSize: 20, fontWeight: '600'}}>
-            Patradanai Nakpimay
-          </Text>
-          <Text>Patradanai_n@hotmail.com</Text>
-        </View>
+        {context?.state?.profile ? (
+          <View style={{paddingHorizontal: 20}}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: '600',
+                textTransform: 'uppercase',
+              }}>
+              {context?.state?.profile?.fname +
+                ' ' +
+                context?.state?.profile?.lname}
+            </Text>
+            <Text>{context?.state?.profile?.email}</Text>
+          </View>
+        ) : null}
       </View>
 
       {/* List Container Account */}

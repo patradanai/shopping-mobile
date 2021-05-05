@@ -1,9 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
-import {View, useWindowDimensions, StyleSheet, Dimensions} from 'react-native';
-import {Text} from 'react-native-elements';
+import React, {useState, useEffect, useContext} from 'react';
+import {useWindowDimensions, StyleSheet, Dimensions} from 'react-native';
+import Axios from '../../utils/lib/api/shipping';
+import {Context} from '../../context/shippingContext';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-
+import Loading from '../../components/Loading';
 import PlaceOrderScreen from './PlaceOrderScreen';
 import ShippingOrderScreen from './ShippingOrderScreen';
 import CompletedOrderScreen from './CompletedOrderScreen';
@@ -11,20 +12,16 @@ import CompletedOrderScreen from './CompletedOrderScreen';
 // Width Screen
 const width = Dimensions.get('window').width;
 
-const renderScene = SceneMap({
-  first: PlaceOrderScreen,
-  second: ShippingOrderScreen,
-  third: CompletedOrderScreen,
-});
-
 const OrderScreen = () => {
   const layout = useWindowDimensions();
-
+  const context = useContext(Context);
+  const [orders, setOrders] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    {key: 'first', title: 'Order'},
-    {key: 'second', title: 'Delivery'},
-    {key: 'third', title: 'Completed'},
+    {key: 'order', title: 'Order'},
+    {key: 'delivery', title: 'Delivery'},
+    {key: 'complete', title: 'Completed'},
   ]);
 
   const renderTabBar = props => (
@@ -39,16 +36,54 @@ const OrderScreen = () => {
     />
   );
 
+  const renderScene = ({route, jumpTo}) => {
+    switch (route.key) {
+      case 'order':
+        return <PlaceOrderScreen order={orders} />;
+      case 'delivery':
+        return <ShippingOrderScreen order={orders} />;
+      case 'complete':
+        return <CompletedOrderScreen order={orders} />;
+      default:
+        return null;
+    }
+  };
+
+  // Feteching Order
+  useEffect(() => {
+    const token = context.state.token;
+
+    if (token) {
+      setIsLoading(true);
+      setTimeout(() => {
+        Axios.get('/db_order/orders', {
+          headers: {authorization: `Bearer ${token}`},
+        })
+          .then(res => {
+            setOrders(res.data.data);
+            setIsLoading(false);
+          })
+          .catch(err => {
+            console.log(err.response.data);
+            setIsLoading(false);
+          });
+      }, 500);
+    }
+  }, [context.state.token]);
+
   return (
-    <TabView
-      lazy
-      navigationState={{index, routes}}
-      renderScene={renderScene}
-      renderTabBar={renderTabBar}
-      onIndexChange={setIndex}
-      initialLayout={{width: layout.width}}
-      style={{backgroundColor: '#fff'}}
-    />
+    <>
+      <Loading state={isLoading} />
+      <TabView
+        lazy
+        navigationState={{index, routes}}
+        renderScene={renderScene}
+        renderTabBar={renderTabBar}
+        onIndexChange={setIndex}
+        initialLayout={{width: layout.width}}
+        style={{backgroundColor: '#fff'}}
+      />
+    </>
   );
 };
 

@@ -6,6 +6,13 @@ const initialStores = {
   profile: null,
   cart: [],
   wishlist: [],
+  order: {
+    profile: {},
+    shippingAddr: {},
+    delivery: {},
+    shippingMethod: {},
+    payment: {},
+  },
 };
 
 // Action
@@ -34,6 +41,12 @@ export const setCart = dispatch => {
   };
 };
 
+export const setOrder = dispatch => {
+  return data => {
+    return dispatch({type: 'SET_ORDER', payload: data});
+  };
+};
+
 // Reducer
 
 const reducer = (state, action) => {
@@ -46,6 +59,8 @@ const reducer = (state, action) => {
       return {...state, wishlist: [...state.wishlist, action.payload]};
     case 'SET_CART':
       return {...state, cart: action.payload};
+    case 'SET_ORDER':
+      return {...state, order: {...state.order, ...action.payload}};
     default:
       return state;
   }

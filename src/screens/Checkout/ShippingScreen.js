@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useRef, useState, useContext} from 'react';
+import React, {useRef, useState, useContext, useEffect} from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {View, StyleSheet, ScrollView} from 'react-native';
@@ -23,17 +23,22 @@ const shippingList = [
 
 const ShippingScreen = props => {
   const context = useContext(Context);
+  const [stateSave, setStateSave] = useState(false);
+  const [stateAddr, setStateAddr] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef();
   const token = context.state.token;
   // Init Value
   const initialValue = {
-    name: '',
-    phone: '',
-    province: '',
-    city: '',
-    postcode: '',
-    address: '',
+    name:
+      (stateAddr &&
+        context.state.profile?.fname + ' ' + context.state.profile?.lname) ||
+      '',
+    phone: (stateAddr && context.state.profile?.phone) || '',
+    province: (stateAddr && context.state.profile?.Address?.province) || '',
+    city: (stateAddr && context.state.profile?.Address?.city) || '',
+    postcode: (stateAddr && context.state.profile?.Address?.postcode) || '',
+    address: (stateAddr && context.state.profile?.Address?.address) || '',
     delivery: '',
   };
 
@@ -44,23 +49,86 @@ const ShippingScreen = props => {
     }
   };
 
+  const handleSave = e => {
+    if (e) {
+      putAddr(setStateSave(e));
+    } else {
+      setStateSave(e);
+    }
+  };
+
+  const handleAddr = e => {
+    if (e) {
+      fetchProfile(setStateAddr(e));
+    } else {
+      setStateAddr(e);
+    }
+  };
+
   // get addr
-  const fetchProfile = () => {
+  const fetchProfile = func => {
     if (token) {
-      Axios.get('/auth/profile', {headers: {authorization: `Bearer ${token}`}})
-        .then(res => {
-          console.log(res);
+      setIsLoading(true);
+      setTimeout(() => {
+        Axios.get('/auth/profile', {
+          headers: {authorization: `Bearer ${token}`},
         })
-        .catch(err => {
-          console.log(err);
-        });
+          .then(res => {
+            context.setProfile(res.data);
+            setIsLoading(false);
+            // pass State
+            func;
+          })
+          .catch(err => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      }, 500);
+    }
+  };
+
+  // Put Addr
+  const putAddr = func => {
+    console.log(formRef.current.values);
+    if (token) {
+      setIsLoading(true);
+      setTimeout(() => {
+        Axios.put(
+          '/auth/address/edit',
+          {
+            name: formRef.current.values.name,
+            phone: formRef.current.values.phone,
+            province: formRef.current.values.province,
+            postcode: formRef.current.values.postcode,
+            address: formRef.current.values.address,
+          },
+          {
+            headers: {authorization: `Bearer ${token}`},
+          },
+        )
+          .then(res => {
+            context.setProfile(res.data);
+            setIsLoading(false);
+            // pass State
+            func;
+          })
+          .catch(err => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      }, 500);
     }
   };
 
   return (
     <View style={styles.container}>
+      {/* Loading */}
+      <Loading state={isLoading} />
+
       <ScrollView style={{flex: 1}}>
+        {/* Form */}
         <Formik
+          enableReinitialize={true}
           innerRef={formRef}
           initialValues={initialValue}
           validationSchema={Yup.object().shape({
@@ -123,8 +191,16 @@ const ShippingScreen = props => {
                 </View>
               </View>
               {/* Swtich */}
-              <SwitchLabel label="Save for future purchases" state={true} />
-              <SwitchLabel label="Address seem as account" state={true} />
+              <SwitchLabel
+                label="Save for future purchases"
+                state={stateSave}
+                onPress={handleSave}
+              />
+              <SwitchLabel
+                label="Address seem as account"
+                state={stateAddr}
+                onPress={handleAddr}
+              />
 
               {/* Delivery */}
               <View style={{flex: 1, paddingHorizontal: 10}}>

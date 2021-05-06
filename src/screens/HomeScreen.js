@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext, useCallback} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Text} from 'react-native-elements';
 import CardItem from '../components/CardItem';
+import {Context} from '../context/shippingContext';
 import CategoryItem from '../components/CategoryItem';
 import CarouselItem from '../components/Carousel';
 import Axios from '../utils/lib/api/shipping';
@@ -41,13 +42,38 @@ const carouselItems = [
 ];
 
 const Home = ({route, navigation}) => {
+  const context = useContext(Context);
   const [products, setProducts] = useState(null);
+  const token = context.state.token;
+  /**
+   * Get All product in cart
+   */
+  const fetchGetCart = useCallback(() => {
+    if (token) {
+      Axios.get('/db_cart/cart', {
+        headers: {authorization: `Bearer ${token}`},
+      })
+        .then(res => {
+          //set Cart
+          context.setCart(res.data.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
   // Fectchinh Product
   useEffect(() => {
     Axios.get('/db_product/products')
       .then(res => setProducts(res.data.data))
       .catch(err => console.log(err));
   }, []);
+
+  useEffect(() => {
+    fetchGetCart();
+  }, [token, fetchGetCart]);
 
   return (
     <View style={styles.container}>
@@ -72,7 +98,13 @@ const Home = ({route, navigation}) => {
           </View>
         </View>
         {/* Item */}
-        <View style={{alignSelf: 'stretch', flex: 1, marginTop: 10}}>
+        <View
+          style={{
+            alignSelf: 'stretch',
+
+            flex: 1,
+            marginTop: 10,
+          }}>
           <Text style={styles.textHeader}>Products</Text>
 
           <View style={styles.itemContainer}>
@@ -96,7 +128,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   categoryContainer: {

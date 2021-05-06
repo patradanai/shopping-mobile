@@ -34,7 +34,13 @@ const CartItem = props => {
             type="antdesign"
             size={12}
             color="#f7ba6f"
-            onPress={() => props.handleQuantity(props.product?.id, -1)}
+            onPress={() =>
+              props.handleQuantity(
+                props.product?.id,
+                props.product?.CartProduct?.quantity,
+                -1,
+              )
+            }
           />
           <Text
             style={{
@@ -52,14 +58,26 @@ const CartItem = props => {
             type="antdesign"
             size={12}
             color="#f7ba6f"
-            onPress={() => props.handleQuantity(props.product?.id, 1)}
+            onPress={() =>
+              props.handleQuantity(
+                props.product?.id,
+                props.product?.CartProduct?.quantity,
+                1,
+              )
+            }
           />
         </View>
       </View>
 
       {/* cancel & price */}
       <View style={styles.lastContainer}>
-        <Icon name="closesquare" type="antdesign" size={25} color="#000" />
+        <Icon
+          name="closesquare"
+          type="antdesign"
+          size={25}
+          color="#000"
+          onPress={() => props.handleDelete(props.product?.id)}
+        />
         <Text style={{fontSize: 20, fontWeight: 'bold'}}>
           {props.product?.CartProduct?.quantity * props.product?.price}$
         </Text>

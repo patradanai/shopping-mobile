@@ -8,12 +8,16 @@ import EmptyCart from '../components/EmptyCart';
 import Loading from '../components/Loading';
 import CartItem from '../components/CartItem';
 import Axios from '../utils/lib/api/shipping';
+import {updateQuantity} from '../utils/__helper__';
 
 const CartScreen = ({navigation}) => {
   const [isLoading, setIsloading] = useState(false);
   const context = useContext(Context);
   const token = context.state.token;
 
+  /**
+   * Get All product in cart
+   */
   const fetchGetCart = () => {
     if (token) {
       setIsloading(true);
@@ -23,7 +27,6 @@ const CartScreen = ({navigation}) => {
         .then(res => {
           //set Cart
           context.setCart(res.data.data);
-          console.log(res.data.data?.Products[0]?.CartProduct?.quantity);
           setIsloading(false);
         })
         .catch(err => {
@@ -33,7 +36,14 @@ const CartScreen = ({navigation}) => {
     }
   };
 
-  const updateQuantityProduct = (productId, quantity) => {
+  /**
+   *
+   * @param {*} productId (number)
+   * @param {*} quantity (number)
+   *
+   *  For + , - quantity and Delete product
+   */
+  const postCart = (productId, quantity) => {
     if (token) {
       Axios.post(
         '/db_cart/cart',
@@ -50,12 +60,28 @@ const CartScreen = ({navigation}) => {
     }
   };
 
+  /**
+   *
+   * @param {*} productId (number)
+   * @param {*} prevQuanlity (number)
+   * @param {*} quantity (number)
+   */
+  const updateQuantityProduct = (productId, prevQuanlity, quantity) => {
+    const newQuantity = updateQuantity(prevQuanlity, quantity);
+    postCart(productId, newQuantity);
+  };
+
+  const deleteProducCart = productId => {
+    const newQty = 0;
+    postCart(productId, newQty);
+  };
+
   // Fetch Cart
   useEffect(() => {
     fetchGetCart();
   }, [navigation]);
 
-  if (!context.state?.cart?.Products.length > 0) {
+  if (!context.state?.cart?.Products?.length > 0) {
     return <EmptyCart />;
   }
 
@@ -72,6 +98,7 @@ const CartScreen = ({navigation}) => {
               product={data}
               key={index}
               handleQuantity={updateQuantityProduct}
+              handleDelete={deleteProducCart}
             />
           ))}
         </View>

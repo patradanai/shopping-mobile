@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useRef} from 'react';
+import React, {useRef, useState, useContext} from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {View, StyleSheet, ScrollView} from 'react-native';
@@ -7,6 +7,9 @@ import {Text, Button, Icon} from 'react-native-elements';
 import DeliveryMethodItem from '../../components/DeliveryMethodItem';
 import SwitchLabel from '../../components/SwitchLabel';
 import InputForm from '../../components/FormAddress';
+import {Context} from '../../context/shippingContext';
+import Axios from '../../utils/lib/api/shipping';
+import Loading from '../../components/Loading';
 
 //Width SCreen
 
@@ -19,7 +22,10 @@ const shippingList = [
 ];
 
 const ShippingScreen = props => {
+  const context = useContext(Context);
+  const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef();
+  const token = context.state.token;
   // Init Value
   const initialValue = {
     name: '',
@@ -35,6 +41,19 @@ const ShippingScreen = props => {
   const handleSubmit = () => {
     if (formRef.current) {
       formRef.current.handleSubmit();
+    }
+  };
+
+  // get addr
+  const fetchProfile = () => {
+    if (token) {
+      Axios.get('/auth/profile', {headers: {authorization: `Bearer ${token}`}})
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   };
 

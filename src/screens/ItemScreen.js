@@ -5,6 +5,7 @@ import {View, StyleSheet, Dimensions} from 'react-native';
 import {Text, Button, Icon, Image} from 'react-native-elements';
 import Loading from '../components/Loading';
 import Axios from '../utils/lib/api/shipping';
+
 // Get Width
 const width = Dimensions.get('window').width;
 
@@ -13,6 +14,7 @@ const ItemScreen = ({route, navigation}) => {
   const {productId} = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const [product, setProduct] = useState(null);
+  const token = context.state.token;
 
   // set Layout
   useLayoutEffect(() => {
@@ -46,9 +48,31 @@ const ItemScreen = ({route, navigation}) => {
     }
   };
 
-  const addCartProduct = () => {
-    const token = context.state.token;
+  /**
+   * Get All product in cart
+   */
+  const fetchGetCart = () => {
+    if (token) {
+      setIsLoading(true);
+      Axios.get('/db_cart/cart', {
+        headers: {authorization: `Bearer ${token}`},
+      })
+        .then(res => {
+          //set Cart
+          context.setCart(res.data.data);
+          setIsLoading(false);
+        })
+        .catch(err => {
+          console.log(err);
+          setIsLoading(false);
+        });
+    }
+  };
 
+  /**
+   * Post quanlity to Cart
+   */
+  const addCartProduct = () => {
     if (token && productId) {
       setIsLoading(true);
       setTimeout(() => {
@@ -56,11 +80,12 @@ const ItemScreen = ({route, navigation}) => {
           '/db_cart/cart',
           {
             productId: productId,
+            quantity: 1,
           },
           {headers: {authorization: `Bearer ${token}`}},
         )
           .then(res => {
-            setIsLoading(false);
+            fetchGetCart();
           })
           .catch(err => {
             console.log(err);

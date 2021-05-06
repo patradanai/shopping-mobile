@@ -99,6 +99,8 @@ const AccountStack = () => {
 };
 
 const TabScreen = () => {
+  const context = useContext(Context);
+
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -116,7 +118,7 @@ const TabScreen = () => {
         component={CartStack}
         options={{
           tabBarLabel: 'Cart',
-          tabBarBadge: 3,
+          tabBarBadge: context.state.cart?.Products?.length,
           tabBarIcon: ({focused, color, size}) => {
             return <Icon name="shoppingcart" type="antdesign" />;
           },

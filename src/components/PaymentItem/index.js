@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-elements';
 
 // Width
@@ -9,11 +9,13 @@ const width = Dimensions.get('window').width;
 const col = 2;
 const marginHorizontal = 4;
 
-const PaymentItem = props => {
+const PaymentItem = ({index, name, onPress, state}) => {
   return (
-    <View style={styles.container}>
-      <Text>{props.name}</Text>
-    </View>
+    <TouchableOpacity onPress={() => onPress(index, name)}>
+      <View style={index === state ? styles.containerActive : styles.container}>
+        <Text>{name}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -22,7 +24,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 80,
-
     width: width / col - marginHorizontal * (col * 2),
     marginLeft: marginHorizontal,
     marginRight: marginHorizontal,
@@ -30,6 +31,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 2,
     borderColor: '#eaeaea',
+    borderRadius: 10,
+  },
+  containerActive: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 80,
+    width: width / col - marginHorizontal * (col * 2),
+    marginLeft: marginHorizontal,
+    marginRight: marginHorizontal,
+    marginVertical: 5,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: 'orange',
     borderRadius: 10,
   },
 });

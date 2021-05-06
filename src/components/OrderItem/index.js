@@ -12,20 +12,25 @@ const OrderItem = props => {
       {/* Image */}
       <Image
         style={styles.image}
-        source={{
-          uri:
-            'https://cdn.ambientedirect.com/chameleon/mediapool/thumbs/0/47/Gubi_Beetle-Chair-mit-Stoff-und-Gestell-schwarz_1515x1515-ID572442-a40195c7e75264b6a6309e1e0ffa09f7.jpg',
-        }}
+        source={
+          props?.product?.imageSrc
+            ? {uri: props?.product?.imageSrc}
+            : require('../../assets/image/no_product.png')
+        }
       />
       {/* title , category, buttom */}
       <View style={styles.detailsContainer}>
         <View>
-          <Text style={{fontSize: 15, fontWeight: 'bold'}}>Pink Chair</Text>
-          <Text style={{fontSize: 13, color: '#a7a7a7'}}>Modern</Text>
+          <Text style={{fontSize: 15, fontWeight: 'bold'}}>
+            {props.product?.name}
+          </Text>
+          <Text style={{fontSize: 13, color: '#a7a7a7'}}>
+            {props.product?.Category?.name}
+          </Text>
         </View>
         <View style={styles.quantityContainer}>
           <Text style={{fontSize: 13, fontWeight: 'bold', marginHorizontal: 5}}>
-            300$
+            {props.product?.price}฿
           </Text>
         </View>
       </View>
@@ -40,7 +45,7 @@ const OrderItem = props => {
             padding: 8,
             borderRadius: 5,
           }}>
-          1
+          {props.product?.CartProduct?.quantity}
         </Text>
       </View>
     </View>

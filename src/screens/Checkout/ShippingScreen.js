@@ -14,11 +14,11 @@ import Loading from '../../components/Loading';
 //Width SCreen
 
 const shippingList = [
-  {key: 1, name: 'Standard', price: '฿30'},
-  {key: 2, name: 'EMS', price: '฿50'},
-  {key: 3, name: 'Kerry', price: '฿70'},
-  {key: 4, name: 'Flash', price: '฿50'},
-  {key: 5, name: 'J&T', price: '฿50'},
+  {key: 1, name: 'Standard', price: 30},
+  {key: 2, name: 'EMS', price: 50},
+  {key: 3, name: 'Kerry', price: 70},
+  {key: 4, name: 'Flash', price: 50},
+  {key: 5, name: 'J&T', price: 50},
 ];
 
 const ShippingScreen = props => {
@@ -65,6 +65,14 @@ const ShippingScreen = props => {
     setStateDelivery(index);
     //set Context
     context.setOrder({shippingMethod: {index, name, price}});
+
+    //set subtotal and grantotal in Context
+    context.setOrder({
+      subTotal: context.state.cart?.subTotal,
+      grandTotal: context.state.cart?.subTotal + price,
+    });
+
+    // set Shippingmethod in validate
     formRef.current.setFieldValue('delivery', {
       shippingMethod: {index, name, price},
     });
@@ -97,7 +105,7 @@ const ShippingScreen = props => {
                 name: res.data.fname + ' ' + res.data.lname,
                 phone: res.data.phone,
               },
-              shippingAddress: res.data.Address,
+              shippingAddress: {...res.data.Address},
             });
             setIsLoading(false);
             // pass State
@@ -169,7 +177,6 @@ const ShippingScreen = props => {
           }}>
           {({values, errors, handleBlur, handleChange}) => (
             <View style={styles.containerForm}>
-              {console.log(errors)}
               <InputForm
                 name={'name'}
                 placeholder="Name"

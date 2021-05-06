@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useContext, useCallback} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Button, Text} from 'react-native-elements';
 import {Context} from '../context/shippingContext';

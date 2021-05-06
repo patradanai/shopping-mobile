@@ -10,7 +10,7 @@ const DeliveryMethodItem = ({index, name, price, onPress, state}) => {
     <TouchableOpacity onPress={() => onPress(index, name, price)}>
       <View style={state === index ? styles.containerActive : styles.container}>
         <Text style={state === index ? styles.textActive : styles.text}>
-          {price}
+          {price}฿
         </Text>
         <Text style={state === index ? styles.textActive : styles.text}>
           {name}

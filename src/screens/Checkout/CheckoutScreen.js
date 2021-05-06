@@ -34,7 +34,7 @@ const CheckoutScreen = () => {
       case 'payment':
         return <PaymentScreen jumpTo={setIndex} />;
       case 'confirm':
-        return <ConfirmScreen />;
+        return <ConfirmScreen jumpTo={setIndex} />;
       default:
         return null;
     }

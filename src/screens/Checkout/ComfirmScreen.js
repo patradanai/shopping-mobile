@@ -1,10 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import {Text, Button, Icon} from 'react-native-elements';
+import {Context} from '../../context/shippingContext';
 import OrderItem from '../../components/OrderItem';
+import Axios from '../../utils/lib/api/shipping';
 
 const ConfirmScreen = props => {
+  const context = useContext(Context);
+  console.log(context.state.order);
   return (
     <View style={styles.container}>
       <ScrollView style={{flex: 1, width: '100%'}}>
@@ -13,23 +17,27 @@ const ConfirmScreen = props => {
           <View style={styles.containerContent}>
             <View style={styles.containerInnerContent}>
               <Text style={{fontWeight: 'bold'}}>SHIPPING TO:</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => props.jumpTo(0)}>
                 <Text style={{color: 'blue'}}>EDIT</Text>
               </TouchableOpacity>
             </View>
-            <Text>Patradanai Nakpimay</Text>
-            <Text>44 M.4 T.Donpao A.Meawang Chiangmai 50360</Text>
+            <Text style={{textTransform: 'uppercase'}}>
+              {context.state.order?.profile?.name}
+            </Text>
+            <Text numberOfLines={1}>
+              {context.state.order?.shippingAddress?.address}
+            </Text>
           </View>
 
           {/* Payment */}
           <View style={styles.containerContent}>
             <View style={styles.containerInnerContent}>
               <Text style={{fontWeight: 'bold'}}>PAYMENT BY:</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => props.jumpTo(1)}>
                 <Text style={{color: 'blue'}}>EDIT</Text>
               </TouchableOpacity>
             </View>
-            <Text>Cash on Delivery ( COD )</Text>
+            <Text>{context.state.order?.payment?.name}</Text>
           </View>
 
           {/* Orders */}
@@ -40,9 +48,9 @@ const ConfirmScreen = props => {
                 <Text style={{color: 'blue'}}>EDIT</Text>
               </TouchableOpacity>
             </View>
-            <OrderItem />
-            <OrderItem />
-            <OrderItem />
+            {context.state.cart?.Products?.map((data, index) => (
+              <OrderItem product={data} key={index} />
+            ))}
           </View>
         </View>
       </ScrollView>
@@ -51,17 +59,23 @@ const ConfirmScreen = props => {
         {/* Sub */}
         <View style={styles.subContainer}>
           <Text style={styles.subText}>SubTotal</Text>
-          <Text style={styles.subText}>302$</Text>
+          <Text style={styles.subText}>{context.state.order?.subTotal}฿</Text>
         </View>
         {/* Shipping */}
         <View style={styles.subContainer}>
-          <Text style={styles.subText}>Shipping & handling</Text>
-          <Text style={styles.subText}>+30$</Text>
+          <Text style={styles.subText}>
+            Shipping & handling ( {context.state.order?.shippingMethod?.name} )
+          </Text>
+          <Text style={styles.subText}>
+            +{context.state.order?.shippingMethod?.price}฿
+          </Text>
         </View>
         {/* Total */}
         <View style={styles.toalContainer}>
           <Text style={styles.totalText}>Total Amount</Text>
-          <Text style={styles.totalText}>302$</Text>
+          <Text style={styles.totalText}>
+            {context.state.order?.grandTotal}$
+          </Text>
         </View>
         <Button
           title="Confirm & Pay"

@@ -7,6 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
+import {navigationRef} from './navigateRef';
 
 import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
@@ -162,7 +163,7 @@ const Routes = () => {
     }, 1000);
   }, []);
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator initialRouteName={isToken ? 'signin' : 'tab'}>
         {isToken ? (
           <>

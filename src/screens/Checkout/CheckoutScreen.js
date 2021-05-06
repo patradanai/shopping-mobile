@@ -1,14 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {
-  View,
-  useWindowDimensions,
-  StyleSheet,
-  Dimensions,
-  Animated,
-  TouchableOpacity,
-} from 'react-native';
-import {Text, Icon} from 'react-native-elements';
+import {useWindowDimensions, Dimensions} from 'react-native';
+import {Icon} from 'react-native-elements';
 import {TabView, TabBar} from 'react-native-tab-view';
 
 import ConfirmScreen from './ComfirmScreen';
@@ -74,30 +67,30 @@ const CheckoutScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  tabBar: {
-    flexDirection: 'row',
-    position: 'relative',
-  },
-  tabItem: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 16,
-  },
-  slider: {
-    height: 5,
-    width: width / 2,
-    position: 'absolute',
-    bottom: 0,
-    left: 10,
-    zIndex: 10,
-    backgroundColor: 'blue',
-    borderRadius: 10,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//   },
+//   tabBar: {
+//     flexDirection: 'row',
+//     position: 'relative',
+//   },
+//   tabItem: {
+//     flex: 1,
+//     alignItems: 'center',
+//     padding: 16,
+//   },
+//   slider: {
+//     height: 5,
+//     width: width / 2,
+//     position: 'absolute',
+//     bottom: 0,
+//     left: 10,
+//     zIndex: 10,
+//     backgroundColor: 'blue',
+//     borderRadius: 10,
+//   },
+// });
 
 export default CheckoutScreen;
 

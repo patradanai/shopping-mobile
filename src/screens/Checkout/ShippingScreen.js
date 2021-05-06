@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useRef, useState, useContext, useEffect} from 'react';
+import React, {useRef, useState, useContext} from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {View, StyleSheet, ScrollView} from 'react-native';

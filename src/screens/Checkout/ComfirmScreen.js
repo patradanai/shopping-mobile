@@ -1,16 +1,49 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import {Text, Button, Icon} from 'react-native-elements';
 import {Context} from '../../context/shippingContext';
 import OrderItem from '../../components/OrderItem';
 import Axios from '../../utils/lib/api/shipping';
+import * as RootNavigation from '../../routes/navigateRef';
+import Loading from '../../components/Loading';
 
 const ConfirmScreen = props => {
   const context = useContext(Context);
-  console.log(context.state.order);
+  const [isLoading, setIsLoading] = useState(false);
+  const token = context.state.token;
+
+  // post placeorder POST /db_order/order
+  const handlePlaceOrder = () => {
+    if (token) {
+      setIsLoading(true);
+      Axios.post(
+        '/db_order/order',
+        {
+          orderStatusId: 1,
+          paymentId: 1,
+          name: context.state.order?.profile?.name,
+          phone: context.state.order?.profile?.phone,
+          shippingMethodId: 1,
+          shippingAddress: context.state.order?.shippingAddress?.Address,
+          subTotal: context.state.order?.subTotal,
+          grandTotal: context.state.order?.grandTotal,
+        },
+        {headers: {authorization: `Bearer ${token}`}},
+      )
+        .then(res => {
+          setIsLoading(false);
+        })
+        .catch(err => {
+          console.log(err);
+          setIsLoading(false);
+        });
+    }
+  };
+
   return (
     <View style={styles.container}>
+      <Loading state={isLoading} />
       <ScrollView style={{flex: 1, width: '100%'}}>
         <View style={{flex: 1, alignSelf: 'stretch'}}>
           {/* Shipping */}
@@ -44,7 +77,7 @@ const ConfirmScreen = props => {
           <View style={styles.containerContent}>
             <View style={styles.containerInnerContent}>
               <Text style={{fontWeight: 'bold'}}>ORDERS:</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => RootNavigation.navigate('cart')}>
                 <Text style={{color: 'blue'}}>EDIT</Text>
               </TouchableOpacity>
             </View>
@@ -78,6 +111,7 @@ const ConfirmScreen = props => {
           </Text>
         </View>
         <Button
+          onPress={() => handlePlaceOrder()}
           title="Confirm & Pay"
           icon={
             <Icon name="arrow-forward-outline" type="ionicon" color="#fff" />

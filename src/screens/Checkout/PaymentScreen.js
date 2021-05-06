@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useRef, useState, useContext} from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';

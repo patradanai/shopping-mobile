@@ -18,6 +18,7 @@ const OrderScreen = () => {
   const [orders, setOrders] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [index, setIndex] = useState(0);
+  const token = context.state.token;
   const [routes] = useState([
     {key: 'order', title: 'Order'},
     {key: 'delivery', title: 'Delivery'},
@@ -39,9 +40,9 @@ const OrderScreen = () => {
   const renderScene = ({route, jumpTo}) => {
     switch (route.key) {
       case 'order':
-        return <ShippingOrderScreen order={orders} />;
-      case 'delivery':
         return <PlaceOrderScreen order={orders} />;
+      case 'delivery':
+        return <ShippingOrderScreen order={orders} />;
       case 'complete':
         return <CompletedOrderScreen order={orders} />;
       default:
@@ -51,8 +52,6 @@ const OrderScreen = () => {
 
   // Feteching Order
   useEffect(() => {
-    const token = context.state.token;
-
     if (token) {
       setIsLoading(true);
       setTimeout(() => {
@@ -69,7 +68,7 @@ const OrderScreen = () => {
           });
       }, 500);
     }
-  }, [context.state.token]);
+  }, [token]);
 
   return (
     <>

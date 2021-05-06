@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState, useContext, useCallback} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView, FlatList} from 'react-native';
 import {Text} from 'react-native-elements';
 import CardItem from '../components/CardItem';
 import {Context} from '../context/shippingContext';
@@ -44,6 +44,7 @@ const carouselItems = [
 const Home = ({route, navigation}) => {
   const context = useContext(Context);
   const [products, setProducts] = useState(null);
+  const [categories, setCategories] = useState(null);
   const token = context.state.token;
   /**
    * Get All product in cart
@@ -64,11 +65,19 @@ const Home = ({route, navigation}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  // Fectchinh Product
   useEffect(() => {
+    // Fectchinh Product
     Axios.get('/db_product/products')
       .then(res => setProducts(res.data.data))
       .catch(err => console.log(err));
+
+    Axios.get('/db_category/categories')
+      .then(res => {
+        setCategories(res.data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }, []);
 
   useEffect(() => {
@@ -83,17 +92,27 @@ const Home = ({route, navigation}) => {
         {/* Category */}
         <View style={{alignSelf: 'stretch', marginTop: 10}}>
           <Text style={styles.textHeader}>Categories</Text>
-          <View style={{height: 120}}>
+          <View>
             <ScrollView
+              bounces={false}
               horizontal
-              contentContainerStyle={{flexGrow: 1}}
-              style={{flex: 1}}>
-              <View style={styles.categoryContainer}>
-                <CategoryItem />
-                <CategoryItem />
-                <CategoryItem />
-                <CategoryItem />
-              </View>
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}>
+              <FlatList
+                bounces={false}
+                contentContainerStyle={{
+                  alignSelf: 'flex-start',
+                  marginVertical: 10,
+                }}
+                numColumns={11}
+                data={categories}
+                keyExtractor={item => item.id}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                renderItem={(item, index) => (
+                  <CategoryItem data={item} key={index} />
+                )}
+              />
             </ScrollView>
           </View>
         </View>

@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Text, Input, Button, Avatar, Icon} from 'react-native-elements';
+import {Input, Button, Avatar, Icon} from 'react-native-elements';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {Context} from '../context/shippingContext';
@@ -21,6 +21,8 @@ const ProfileScreen = ({route, navigation}) => {
 
   return (
     <View style={styles.container}>
+      {/* Loading */}
+      <Loading state={isLoading} />
       {/* Container Card */}
       <View style={styles.containerCard}>
         <View style={styles.containerAvatar}>

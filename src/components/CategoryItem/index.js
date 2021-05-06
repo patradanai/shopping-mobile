@@ -1,18 +1,21 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text} from 'react-native-elements';
 
 const Categoryitem = () => {
   return (
     <View style={styles.container}>
-      <View></View>
+      <View style={styles.containerInner}></View>
+      <Text style={styles.textTitle}>Modern</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: 100,
-    height: 100,
+  container: {flex: 1, alignItems: 'center'},
+  containerInner: {
+    width: 80,
+    height: 80,
     borderRadius: 50,
     marginHorizontal: 10,
     backgroundColor: '#fff',
@@ -25,6 +28,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  textTitle: {marginTop: 5, fontSize: 15, fontWeight: '600'},
 });
 
 export default Categoryitem;

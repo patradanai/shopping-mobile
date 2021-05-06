@@ -3,7 +3,7 @@ import React from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {View, StyleSheet} from 'react-native';
-import {Button, Text, Input} from 'react-native-elements';
+import {Button, Text} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Circle} from '../utils/lib/circle';

@@ -11,7 +11,7 @@ const CartItems = props => {
   return (
     <TouchableOpacity
       onPress={() =>
-        props.navigation.navigate('item', {productId: props.data.id})
+        props.navigation.navigate('item', {productId: props.data?.id})
       }>
       <View style={styles.container}>
         {/* Image */}
@@ -20,8 +20,8 @@ const CartItems = props => {
             style={styles.image}
             loadingIndicatorSource
             source={
-              props.data.imageSrc
-                ? {uri: props.data.imageSrc}
+              props.data?.imageSrc
+                ? {uri: props.data?.imageSrc}
                 : require('../../assets/image/no_product.png')
             }
           />
@@ -29,12 +29,12 @@ const CartItems = props => {
         {/* Content */}
         <View style={styles.textContainer}>
           <Text numberOfLines={1} style={{fontSize: 18, fontWeight: '500'}}>
-            {props.data.name}
+            {props.data?.name}
           </Text>
           <Text
             numberOfLines={1}
             style={{fontSize: 15, fontWeight: '700', marginVertical: 1}}>
-            {props.data.price}$
+            {props.data?.price}$
           </Text>
           <Text
             numberOfLines={1}
@@ -44,7 +44,7 @@ const CartItems = props => {
               color: '#a7a7a7',
               marginVertical: 1,
             }}>
-            {props.data.description}
+            {props.data?.description}
           </Text>
         </View>
       </View>

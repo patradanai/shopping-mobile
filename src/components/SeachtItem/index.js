@@ -10,9 +10,12 @@ const SeachItem = props => {
       platform={Platform.OS === 'ios' ? 'ios' : 'android'}
       placeholder="Type Here..."
       onChangeText={props.updateSearch}
-      value={props.valueSeach}
+      value={props.valueSearch}
       cancelButtonTitle="Cancel"
       inputContainerStyle={{height: '100%'}}
+      returnKeyType="search"
+      onSubmitEditing={() => props.onSubmit()}
+      autoCapitalize="none"
     />
   );
 };

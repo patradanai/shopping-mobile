@@ -21,7 +21,7 @@ const CartItem = props => {
       <View style={styles.detailsContainer}>
         <View>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            {props.product.name}
+            {props.product?.name}
           </Text>
           <Text style={{fontSize: 15, color: '#a7a7a7'}}>
             {props.product.Category?.name}

@@ -3,7 +3,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {useWindowDimensions, StyleSheet, Dimensions} from 'react-native';
 import Axios from '../../utils/lib/api/shipping';
 import {Context} from '../../context/shippingContext';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {TabView, TabBar} from 'react-native-tab-view';
 import Loading from '../../components/Loading';
 import PlaceOrderScreen from './PlaceOrderScreen';
 import ShippingOrderScreen from './ShippingOrderScreen';

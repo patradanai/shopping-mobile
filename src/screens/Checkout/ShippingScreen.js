@@ -14,11 +14,11 @@ import Loading from '../../components/Loading';
 //Width SCreen
 
 const shippingList = [
-  {name: 'Standard', price: '฿30'},
-  {name: 'EMS', price: '฿50'},
-  {name: 'Kerry', price: '฿70'},
-  {name: 'Flash', price: '฿50'},
-  {name: 'J&T', price: '฿50'},
+  {key: 1, name: 'Standard', price: '฿30'},
+  {key: 2, name: 'EMS', price: '฿50'},
+  {key: 3, name: 'Kerry', price: '฿70'},
+  {key: 4, name: 'Flash', price: '฿50'},
+  {key: 5, name: 'J&T', price: '฿50'},
 ];
 
 const ShippingScreen = props => {
@@ -26,8 +26,10 @@ const ShippingScreen = props => {
   const [stateSave, setStateSave] = useState(false);
   const [stateAddr, setStateAddr] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [stateDelivery, setStateDelivery] = useState(null);
   const formRef = useRef();
   const token = context.state.token;
+
   // Init Value
   const initialValue = {
     name:
@@ -49,6 +51,7 @@ const ShippingScreen = props => {
     }
   };
 
+  // handle State Save
   const handleSave = e => {
     if (e) {
       putAddr(setStateSave(e));
@@ -57,6 +60,17 @@ const ShippingScreen = props => {
     }
   };
 
+  // handle Delivery
+  const handleDelivery = (index, name, price) => {
+    setStateDelivery(index);
+    //set Context
+    context.setOrder({shippingMethod: {index, name, price}});
+    formRef.current.setFieldValue('delivery', {
+      shippingMethod: {index, name, price},
+    });
+  };
+
+  // handle State Addr
   const handleAddr = e => {
     if (e) {
       fetchProfile(setStateAddr(e));
@@ -74,7 +88,17 @@ const ShippingScreen = props => {
           headers: {authorization: `Bearer ${token}`},
         })
           .then(res => {
+            // set profile in context
             context.setProfile(res.data);
+
+            // set order addr, profile in context
+            context.setOrder({
+              profile: {
+                name: res.data.fname + ' ' + res.data.lname,
+                phone: res.data.phone,
+              },
+              shippingAddress: res.data.Address,
+            });
             setIsLoading(false);
             // pass State
             func;
@@ -134,16 +158,18 @@ const ShippingScreen = props => {
           validationSchema={Yup.object().shape({
             name: Yup.string().required(),
             phone: Yup.string().required(),
-            province: Yup.string().required(),
-            city: Yup.string().required(),
+            province: Yup.string(),
+            city: Yup.string(),
             postcode: Yup.string().required(),
             address: Yup.string().required(),
+            delivery: Yup.object().required(),
           })}
           onSubmit={values => {
             props.jumpTo(1);
           }}>
           {({values, errors, handleBlur, handleChange}) => (
             <View style={styles.containerForm}>
+              {console.log(errors)}
               <InputForm
                 name={'name'}
                 placeholder="Name"
@@ -214,11 +240,14 @@ const ShippingScreen = props => {
                 </Text>
                 <ScrollView horizontal>
                   <View style={styles.deliveryContainer}>
-                    {shippingList?.map((data, index) => (
+                    {shippingList?.map((data, key) => (
                       <DeliveryMethodItem
                         name={data.name}
                         price={data.price}
-                        key={index}
+                        index={data.key}
+                        onPress={handleDelivery}
+                        state={stateDelivery}
+                        key={key}
                       />
                     ))}
                   </View>

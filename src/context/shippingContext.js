@@ -9,7 +9,6 @@ const initialStores = {
   order: {
     profile: {},
     shippingAddr: {},
-    delivery: {},
     shippingMethod: {},
     payment: {},
   },
@@ -68,6 +67,6 @@ const reducer = (state, action) => {
 
 export const {Context, Provider} = crateContext(
   reducer,
-  {setToken, setProfile, setWishlist, setCart},
+  {setToken, setProfile, setWishlist, setCart, setOrder},
   initialStores,
 );

@@ -84,6 +84,8 @@ const Home = ({route, navigation}) => {
     fetchGetCart();
   }, [token, fetchGetCart]);
 
+  const columnCount = categories?.length / 2;
+
   return (
     <View style={styles.container}>
       <ScrollView style={{flex: 1}}>
@@ -104,12 +106,13 @@ const Home = ({route, navigation}) => {
                   alignSelf: 'flex-start',
                   marginVertical: 10,
                 }}
+                style={{flexGrow: 0}}
                 numColumns={11}
                 data={categories}
                 keyExtractor={item => item.id}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                renderItem={(item, index) => (
+                renderItem={({item, index}) => (
                   <CategoryItem data={item} key={index} />
                 )}
               />

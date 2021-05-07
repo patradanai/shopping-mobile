@@ -128,6 +128,7 @@ const Account = ({navigation}) => {
               justifyContent: 'center',
             }}>
             <Button
+              onPress={() => navigation.replace('signin')}
               title="Signin"
               buttonStyle={{
                 borderRadius: 10,
@@ -140,6 +141,7 @@ const Account = ({navigation}) => {
             />
 
             <Button
+              onPress={() => navigation.replace('signup')}
               title="Signup"
               buttonStyle={{
                 borderRadius: 10,

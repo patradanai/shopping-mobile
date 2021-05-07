@@ -10,11 +10,10 @@ import {
   RefreshControl,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Text, Avatar, Icon} from 'react-native-elements';
+import {Text, Avatar, Icon, Button} from 'react-native-elements';
 import AccountList from '../components/AccountItem';
 import Loading from '../components/Loading';
 import Axios from '../utils/lib/api/shipping';
-import {navigate} from '../routes/navigateRef';
 
 const width = Dimensions.get('window').width; //full width
 
@@ -91,32 +90,68 @@ const Account = ({navigation}) => {
       <Loading state={isLoading} />
       {/* Header Container */}
       <View style={styles.headerContainer}>
-        <Avatar
-          size={90}
-          rounded
-          source={
-            context?.state?.profile?.imageSrc
-              ? {
-                  uri: context?.state?.profile?.imageSrc,
-                }
-              : require('../assets/image/avatar.png')
-          }
-        />
         {context?.state?.profile ? (
-          <View style={{paddingHorizontal: 20}}>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: '600',
-                textTransform: 'uppercase',
-              }}>
-              {context?.state?.profile?.fname +
-                ' ' +
-                context?.state?.profile?.lname}
-            </Text>
-            <Text>{context?.state?.profile?.email}</Text>
+          <>
+            (
+            <Avatar
+              size={90}
+              rounded
+              source={
+                context?.state?.profile?.imageSrc
+                  ? {
+                      uri: context?.state?.profile?.imageSrc,
+                    }
+                  : require('../assets/image/avatar.png')
+              }
+            />
+            <View style={{paddingHorizontal: 20}}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                }}>
+                {context?.state?.profile?.fname +
+                  ' ' +
+                  context?.state?.profile?.lname}
+              </Text>
+              <Text>{context?.state?.profile?.email}</Text>
+            </View>
+            )
+          </>
+        ) : (
+          <View
+            style={{
+              flexDirection: 'row',
+              width: '100%',
+
+              justifyContent: 'center',
+            }}>
+            <Button
+              title="Signin"
+              buttonStyle={{
+                borderRadius: 10,
+                width: 120,
+                height: 45,
+                backgroundColor: 'orange',
+              }}
+              titleStyle={{color: 'white', fontWeight: 'bold'}}
+              containerStyle={{paddingLeft: 30, paddingRight: 10}}
+            />
+
+            <Button
+              title="Signup"
+              buttonStyle={{
+                borderRadius: 10,
+                width: 120,
+                height: 45,
+                backgroundColor: '#eaeaea',
+              }}
+              titleStyle={{color: 'black', fontWeight: 'bold'}}
+              containerStyle={{paddingRight: 30, paddingLeft: 10}}
+            />
           </View>
-        ) : null}
+        )}
       </View>
 
       {/* List Container Account */}
@@ -153,13 +188,15 @@ const Account = ({navigation}) => {
             <AccountList key={i} data={l} />
           ))}
         </View>
-        <AccountList
-          data={{
-            name: 'Logout',
-            avatar_url: <Icon name="exit-outline" type="ionicon" />,
-          }}
-          onPressList={() => handleLogout()}
-        />
+        {context?.state?.token ? (
+          <AccountList
+            data={{
+              name: 'Logout',
+              avatar_url: <Icon name="exit-outline" type="ionicon" />,
+            }}
+            onPressList={() => handleLogout()}
+          />
+        ) : null}
       </ScrollView>
     </View>
   );

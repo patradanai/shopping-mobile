@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useLayoutEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Input, Button, Avatar, Icon} from 'react-native-elements';
 import {Formik} from 'formik';
@@ -12,12 +12,20 @@ const ProfileScreen = ({route, navigation}) => {
   const context = useContext(Context);
   const [isLoading, setIsLoading] = useState(false);
   const {profile} = route.params;
+  const token = context.state.token;
   const initialValues = {
     email: profile?.email || '',
     phone: profile?.phone || '',
     fname: profile?.fname || '',
     lname: profile?.lname || '',
   };
+
+  useLayoutEffect(() => {
+    if (!token) {
+      navigation.replace('signin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
@@ -53,7 +61,7 @@ const ProfileScreen = ({route, navigation}) => {
             setIsLoading(true);
             // Delay
             setTimeout(() => {
-              if (context.state.token) {
+              if (token) {
                 Axios.put(
                   '/auth/profile/edit',
                   {
@@ -62,7 +70,7 @@ const ProfileScreen = ({route, navigation}) => {
                     phone: values.phone,
                     email: values.email,
                   },
-                  {headers: {authorization: `Bearer ${context.state.token}`}},
+                  {headers: {authorization: `Bearer ${token}`}},
                 )
                   .then(res => {
                     setIsLoading(false);

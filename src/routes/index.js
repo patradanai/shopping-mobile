@@ -175,7 +175,33 @@ const Routes = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
-        {!skip ? (
+        {skip ? (
+          <>
+            <Stack.Screen
+              name="tab"
+              component={TabScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="signin"
+              component={SigninScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="signup"
+              component={SignupScreen}
+              options={{headerShown: false}}
+            />
+          </>
+        ) : isToken ? (
+          <>
+            <Stack.Screen
+              name="tab"
+              component={TabScreen}
+              options={{headerShown: false}}
+            />
+          </>
+        ) : (
           <>
             <Stack.Screen
               name="signin"
@@ -198,12 +224,6 @@ const Routes = () => {
               options={{headerShown: false}}
             />
           </>
-        ) : (
-          <Stack.Screen
-            name="tab"
-            component={TabScreen}
-            options={{headerShown: false}}
-          />
         )}
       </Stack.Navigator>
     </NavigationContainer>

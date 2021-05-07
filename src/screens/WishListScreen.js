@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useLayoutEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Context} from '../context/shippingContext';
 import WishList from '../components/WishList';
@@ -12,6 +12,13 @@ const WishListScreen = ({navigation}) => {
   const onClickProduct = productId => {
     navigation.navigate('item', {productId: productId});
   };
+
+  useLayoutEffect(() => {
+    if (!token) {
+      navigation.replace('signin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigation]);
 
   useEffect(() => {
     if (token) {

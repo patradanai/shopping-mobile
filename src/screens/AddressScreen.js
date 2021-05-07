@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useLayoutEffect, useContext, useState} from 'react';
+import React, {useLayoutEffect, useContext, useState, useEffect} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Input, Button} from 'react-native-elements';
 import {Formik} from 'formik';
@@ -12,6 +12,7 @@ const AddressScreen = ({route, navigation}) => {
   const context = useContext(Context);
   const [isLoading, setIsLoading] = useState(null);
   const {address, profile} = route.params;
+  const token = context.state?.token;
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -21,9 +22,13 @@ const AddressScreen = ({route, navigation}) => {
       headerTintColor: '#fff',
       headerBackTitleVisible: false,
     });
+
+    if (!token) {
+      navigation.replace('signin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
 
-  console.log(address);
   return (
     <View style={styles.container}>
       <ScrollView style={{flex: 1}}>
@@ -46,7 +51,6 @@ const AddressScreen = ({route, navigation}) => {
             address: Yup.string().required(),
           })}
           onSubmit={values => {
-            const token = context.state?.token;
             if (token) {
               setIsLoading(true);
               setTimeout(() => {

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useLayoutEffect} from 'react';
 import {useWindowDimensions, StyleSheet, Dimensions} from 'react-native';
 import Axios from '../../utils/lib/api/shipping';
 import {Context} from '../../context/shippingContext';
@@ -8,7 +8,7 @@ import Loading from '../../components/Loading';
 import PlaceOrderScreen from './PlaceOrderScreen';
 import ShippingOrderScreen from './ShippingOrderScreen';
 import CompletedOrderScreen from './CompletedOrderScreen';
-
+import {navigateReplace} from '../../routes/navigateRef';
 // Width Screen
 const width = Dimensions.get('window').width;
 
@@ -70,6 +70,12 @@ const OrderScreen = () => {
     }
   }, [token]);
 
+  useLayoutEffect(() => {
+    if (!token) {
+      navigateReplace('signin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigateReplace]);
   return (
     <>
       <Loading state={isLoading} />

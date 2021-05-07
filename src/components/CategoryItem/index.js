@@ -1,22 +1,31 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
-
+import {navigate} from '../../routes/navigateRef';
 const Categoryitem = props => {
   return (
     <View style={styles.container}>
-      <View style={styles.containerInner}>
-        <FastImage
-          style={styles.image}
-          source={{
-            uri:
-              'http://localhost:4000/images/categories/' + props.data.imageSrc,
-            priority: FastImage.priority.normal,
-          }}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-      </View>
+      <TouchableOpacity
+        onPress={() =>
+          navigate('Categories', {
+            categoryId: props.data?.id,
+            name: props.data?.name,
+          })
+        }>
+        <View style={styles.containerInner}>
+          <FastImage
+            style={styles.image}
+            source={{
+              uri:
+                'http://localhost:4000/images/categories/' +
+                props.data?.imageSrc,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </View>
+      </TouchableOpacity>
       <Text style={styles.textTitle} numberOfLines={3}>
         {props.data?.name}
       </Text>

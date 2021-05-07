@@ -35,7 +35,7 @@ const SignupScreen = ({navigation}) => {
   const handleSkip = async () => {
     await AsyncStorage.setItem('skip', JSON.stringify(true));
 
-    navigation.navigate('tab');
+    navigation.replace('tab');
   };
 
   return (

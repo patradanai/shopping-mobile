@@ -50,6 +50,7 @@ const SearchScreen = ({navigation}) => {
           valueSearch={valueSearch}
           updateSearch={onChangeSearch}
           onSubmit={handleSearch}
+          placeholder="Type Here..."
         />
       ),
     });

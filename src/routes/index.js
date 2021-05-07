@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState, useContext, useLayoutEffect} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {Context} from '../context/shippingContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
-import {navigationRef, navigate} from './navigateRef';
+import {navigationRef} from './navigateRef';
 
 import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
@@ -22,6 +22,7 @@ import OrderScreen from '../screens/Order/OrderScreen';
 import WishListScreen from '../screens/WishListScreen';
 import AddresScreen from '../screens/AddressScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import CategoriesScreen from '../screens/CategoriesScreen';
 import SplashScreen from '../screens/SpashScreen';
 
 const Stack = createStackNavigator();
@@ -31,11 +32,13 @@ const ExploreStack = () => {
   return (
     <Stack.Navigator initialRouteName="home">
       <Stack.Screen name="item" component={ItemScreen} />
+      <Stack.Screen name="Categories" component={CategoriesScreen} />
       <Stack.Screen name="search" component={SearchScreen} />
       <Stack.Screen
         name="home"
         component={HomeScreen}
         options={({navigation}) => ({
+          headerTitle: 'E-Shopping',
           headerRight: () => (
             <Icon
               style={{marginHorizontal: 15}}

@@ -7,8 +7,8 @@ import {SearchBar} from 'react-native-elements';
 const SeachItem = props => {
   return (
     <SearchBar
+      {...props}
       platform={Platform.OS === 'ios' ? 'ios' : 'android'}
-      placeholder="Type Here..."
       onChangeText={props.updateSearch}
       value={props.valueSearch}
       cancelButtonTitle="Cancel"

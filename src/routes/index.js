@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState, useContext, useLayoutEffect} from 'react';
 import {Context} from '../context/shippingContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
-import {navigationRef} from './navigateRef';
+import {navigationRef, navigate} from './navigateRef';
 
 import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
@@ -22,6 +22,7 @@ import OrderScreen from '../screens/Order/OrderScreen';
 import WishListScreen from '../screens/WishListScreen';
 import AddresScreen from '../screens/AddressScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import SplashScreen from '../screens/SpashScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -141,31 +142,40 @@ const TabScreen = () => {
 
 const Routes = () => {
   const context = useContext(Context);
+  const [isLoading, setIsLoading] = useState(false);
   const [isToken, setToken] = useState(null);
-  // Get token
-  const getToken = async () => {
+  const [skip, setSkip] = useState(false);
+
+  // Get token & Skip
+  const getTokenSkip = async () => {
     try {
-      const value = await AsyncStorage.getItem('token');
-      if (value !== null) {
-        // value previously store
-        const token = JSON.parse(value);
-        setToken(token);
-        context.setToken(token);
-      }
+      const valueToken = await AsyncStorage.getItem('token');
+
+      const token = JSON.parse(valueToken);
+      setToken(token);
+      context.setToken(token);
+
+      const valueSkip = await AsyncStorage.getItem('skip');
+      setSkip(JSON.parse(valueSkip));
+
+      setIsLoading(true);
     } catch (e) {
       // error reading value
     }
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      getToken();
-    }, 1000);
+    getTokenSkip();
   }, []);
+
+  if (!isLoading) {
+    return <SplashScreen />;
+  }
+
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName={isToken ? 'signin' : 'tab'}>
-        {isToken ? (
+      <Stack.Navigator>
+        {!skip ? (
           <>
             <Stack.Screen
               name="signin"
@@ -182,13 +192,19 @@ const Routes = () => {
               component={LoadingScreen}
               options={{headerShown: false}}
             />
+            <Stack.Screen
+              name="tab"
+              component={TabScreen}
+              options={{headerShown: false}}
+            />
           </>
-        ) : null}
-        <Stack.Screen
-          name="tab"
-          component={TabScreen}
-          options={{headerShown: false}}
-        />
+        ) : (
+          <Stack.Screen
+            name="tab"
+            component={TabScreen}
+            options={{headerShown: false}}
+          />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

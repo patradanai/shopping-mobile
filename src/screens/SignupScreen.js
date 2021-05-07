@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {View, StyleSheet} from 'react-native';
@@ -8,7 +8,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Circle} from '../utils/lib/circle';
 import InputForm from '../components/FormAddress';
-
+import Axios from '../utils/lib/api/shipping';
+import Loading from '../components/Loading';
 const initialValues = {
   name: '',
   email: '',
@@ -16,12 +17,16 @@ const initialValues = {
 };
 
 const SignupScreen = ({navigation}) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: '#fff',
       }}>
+      {/* Loading */}
+      <Loading state={isLoading} />
       <View style={styles.container}>
         {/* Circle Backdrop */}
         <Circle size={300} color="#ff5c2c" position={styles.circleBackdrop1} />
@@ -37,14 +42,38 @@ const SignupScreen = ({navigation}) => {
             email: Yup.string().email().required(),
             password: Yup.string().required(),
           })}
-          onSubmit={values => {}}>
+          onSubmit={values => {
+            const nameSplit = values.name?.split(' ');
+            setIsLoading(true);
+            setTimeout(async () => {
+              try {
+                const response = await Axios.post(
+                  '/auth/signup/customer',
+                  {
+                    email: values.email,
+                    fname: nameSplit[0],
+                    lname: nameSplit[1],
+                    password: values.password,
+                  },
+                  {},
+                );
+                if (response.status === 200) {
+                  navigation.navigate('signin');
+                }
+                setIsLoading(false);
+              } catch (err) {
+                setIsLoading(false);
+                console.log(err);
+              }
+            }, 500);
+          }}>
           {({values, handleBlur, handleChange, errors, handleSubmit}) => (
             <>
               <InputForm
                 name={'name'}
                 placeholder="Full name"
-                error={errors.email}
-                value={values.email}
+                error={errors.name}
+                value={values.name}
                 handleChange={handleChange('name')}
                 handleBlur={handleBlur('name')}
               />
@@ -61,8 +90,8 @@ const SignupScreen = ({navigation}) => {
               <InputForm
                 name={'password'}
                 placeholder="Password"
-                error={errors.email}
-                value={values.email}
+                error={errors.password}
+                value={values.password}
                 handleChange={handleChange('password')}
                 handleBlur={handleBlur('password')}
                 secureTextEntry={true}

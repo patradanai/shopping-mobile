@@ -14,6 +14,7 @@ import {Text, Avatar, Icon} from 'react-native-elements';
 import AccountList from '../components/AccountItem';
 import Loading from '../components/Loading';
 import Axios from '../utils/lib/api/shipping';
+import {navigate} from '../routes/navigateRef';
 
 const width = Dimensions.get('window').width; //full width
 
@@ -72,7 +73,7 @@ const Account = ({navigation}) => {
       await AsyncStorage.removeItem('token');
       context.setProfile(null);
       context.setToken(null);
-      navigation.replace('signin');
+      navigation.navigate('signin');
     } catch (err) {
       console.log(err);
     }

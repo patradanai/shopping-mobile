@@ -13,10 +13,10 @@ const ProfileScreen = ({route, navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const {profile} = route.params;
   const initialValues = {
-    email: profile.email || '',
-    phone: profile.phone || '',
-    fname: profile.fname || '',
-    lname: profile.lname || '',
+    email: profile?.email || '',
+    phone: profile?.phone || '',
+    fname: profile?.fname || '',
+    lname: profile?.lname || '',
   };
 
   return (

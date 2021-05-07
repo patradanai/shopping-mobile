@@ -32,6 +32,12 @@ const SignupScreen = ({navigation}) => {
     }
   };
 
+  const handleSkip = async () => {
+    await AsyncStorage.setItem('skip', JSON.stringify(true));
+
+    navigation.navigate('tab');
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -129,7 +135,7 @@ const SignupScreen = ({navigation}) => {
 
         <View>
           <Text
-            style={{color: '#ff5c2c', fontWeight: '700', marginVertical: 50}}>
+            style={{color: '#ff5c2c', fontWeight: '700', marginVertical: 30}}>
             Forgot Password!
           </Text>
         </View>
@@ -139,6 +145,18 @@ const SignupScreen = ({navigation}) => {
             <Text style={{color: '#ff5c2c', fontWeight: '500'}}>Signup</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity onPress={() => handleSkip()}>
+          <View style={{marginTop: 30}}>
+            <Text
+              style={{
+                color: '#ff5c2c',
+                fontWeight: '500',
+                textDecorationLine: 'underline',
+              }}>
+              Do you want to Skip
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -154,7 +172,7 @@ const styles = StyleSheet.create({
   },
   headerTextContainer: {marginBottom: 100},
   headerText: {fontSize: 50, fontWeight: '500'},
-  containerText: {marginTop: 20, flexDirection: 'row'},
+  containerText: {marginTop: 10, flexDirection: 'row'},
   containerInput: {
     width: '100%',
 

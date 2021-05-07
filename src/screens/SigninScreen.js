@@ -80,7 +80,7 @@ const SignupScreen = ({navigation}) => {
                 }
 
                 // redirect Screen
-                navigation.navigate('loading');
+                navigation.replace('loading');
               } catch (err) {
                 console.log(err.response.request._response);
                 setIsloading(false);

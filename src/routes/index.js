@@ -155,7 +155,7 @@ const Routes = () => {
       const valueToken = await AsyncStorage.getItem('token');
 
       const token = JSON.parse(valueToken);
-      setToken(token);
+
       context.setToken(token);
 
       const valueSkip = await AsyncStorage.getItem('skip');
@@ -188,6 +188,11 @@ const Routes = () => {
             <Stack.Screen
               name="signin"
               component={SigninScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="loading"
+              component={LoadingScreen}
               options={{headerShown: false}}
             />
             <Stack.Screen

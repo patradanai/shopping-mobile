@@ -90,9 +90,8 @@ const Account = ({navigation}) => {
       <Loading state={isLoading} />
       {/* Header Container */}
       <View style={styles.headerContainer}>
-        {context?.state?.profile ? (
+        {context?.state?.token ? (
           <>
-            (
             <Avatar
               size={90}
               rounded
@@ -111,13 +110,14 @@ const Account = ({navigation}) => {
                   fontWeight: '600',
                   textTransform: 'uppercase',
                 }}>
-                {context?.state?.profile?.fname +
-                  ' ' +
-                  context?.state?.profile?.lname}
+                {context?.state?.profile
+                  ? context?.state?.profile?.fname +
+                    ' ' +
+                    context?.state?.profile?.lname
+                  : null}
               </Text>
-              <Text>{context?.state?.profile?.email}</Text>
+              <Text>{context?.state?.profile?.email || ''}</Text>
             </View>
-            )
           </>
         ) : (
           <View

@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useContext, useLayoutEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {View, StyleSheet, Platform} from 'react-native';
 import {Input, Button, Avatar, Icon} from 'react-native-elements';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -10,6 +11,7 @@ import Axios from '../utils/lib/api/shipping';
 
 const ProfileScreen = ({route, navigation}) => {
   const context = useContext(Context);
+  const [imageProfile, setImageProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const {profile} = route.params;
   const token = context.state.token;
@@ -18,6 +20,36 @@ const ProfileScreen = ({route, navigation}) => {
     phone: profile?.phone || '',
     fname: profile?.fname || '',
     lname: profile?.lname || '',
+    imageSrc: imageProfile || '',
+  };
+
+  const handlePickerImage = () => {
+    launchImageLibrary({mediaType: 'photo'}, response => {
+      if (response.uri) {
+        // Add in Dataform
+        let data = new FormData();
+        data.append('profile', {
+          name: response.fileName,
+          type: response.type,
+          uri:
+            Platform.OS === 'ios'
+              ? response.uri.replace('file://', '')
+              : response.uri,
+        });
+        Axios.post('/db_image/footage/profile', data, {
+          headers: {
+            authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+          .then(res => {
+            setImageProfile(res.data.image);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    });
   };
 
   useLayoutEffect(() => {
@@ -27,6 +59,8 @@ const ProfileScreen = ({route, navigation}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
 
+  console.log(profile);
+
   return (
     <View style={styles.container}>
       {/* Loading */}
@@ -35,13 +69,14 @@ const ProfileScreen = ({route, navigation}) => {
       <View style={styles.containerCard}>
         <View style={styles.containerAvatar}>
           <Avatar
+            onPress={() => handlePickerImage()}
             rounded
             title="PN"
             size={120}
             source={
-              profile?.imageSrc
+              profile?.imageSrc || imageProfile
                 ? {
-                    uri: profile?.imageSrc,
+                    uri: profile?.imageSrc || imageProfile,
                   }
                 : require('../assets/image/avatar.png')
             }>
@@ -69,6 +104,7 @@ const ProfileScreen = ({route, navigation}) => {
                     lname: values.lname,
                     phone: values.phone,
                     email: values.email,
+                    imageSrc: values.imageSrc,
                   },
                   {headers: {authorization: `Bearer ${token}`}},
                 )
@@ -86,7 +122,7 @@ const ProfileScreen = ({route, navigation}) => {
           {({values, errors, handleChange, handleBlur, handleSubmit}) => (
             <View style={{width: '100%'}}>
               <Input
-                label="Name"
+                label="First Name"
                 inputContainerStyle={styles.inputContianer}
                 rightIcon={<Icon name="person-circle-outline" type="ionicon" />}
                 onChangeText={handleChange('fname')}
@@ -95,7 +131,7 @@ const ProfileScreen = ({route, navigation}) => {
                 errorMessage={errors.fname}
               />
               <Input
-                label="Name"
+                label="Last Name"
                 inputContainerStyle={styles.inputContianer}
                 rightIcon={<Icon name="person-circle-outline" type="ionicon" />}
                 onChangeText={handleChange('lname')}

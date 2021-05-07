@@ -42,9 +42,26 @@ const ItemScreen = ({route, navigation}) => {
   }, [productId]);
 
   const addWishList = () => {
-    if (product) {
-      // Add product to wish
-      context.setWishlist(product);
+    if (token && productId) {
+      setIsLoading(true);
+      setTimeout(() => {
+        Axios.post(
+          '/db_wish/wish',
+          {
+            productId: productId,
+          },
+          {headers: {authorization: `Bearer ${token}`}},
+        )
+          .then(res => {
+            fetchGetCart();
+            // Add product to wish
+            context.setWishlist(product);
+          })
+          .catch(err => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      }, 500);
     }
   };
 
@@ -94,10 +111,6 @@ const ItemScreen = ({route, navigation}) => {
       }, 500);
     }
   };
-
-  // if (isLoading) {
-  //   return <Loading state={isLoading} />;
-  // }
 
   return (
     <View style={styles.container}>

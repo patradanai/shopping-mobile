@@ -84,8 +84,6 @@ const Home = ({route, navigation}) => {
     fetchGetCart();
   }, [token, fetchGetCart]);
 
-  const columnCount = categories?.length / 2;
-
   return (
     <View style={styles.container}>
       <ScrollView style={{flex: 1}}>
@@ -105,6 +103,7 @@ const Home = ({route, navigation}) => {
                 contentContainerStyle={{
                   alignSelf: 'flex-start',
                   marginVertical: 10,
+                  marginHorizontal: 5,
                 }}
                 style={{flexGrow: 0}}
                 numColumns={11}

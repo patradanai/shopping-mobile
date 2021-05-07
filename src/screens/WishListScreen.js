@@ -1,20 +1,36 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Button, Text} from 'react-native-elements';
 import {Context} from '../context/shippingContext';
 import WishList from '../components/WishList';
 import WishListItem from '../components/WishListItem';
+import Axios from '../utils/lib/api/shipping';
 
 const WishListScreen = ({navigation}) => {
   const context = useContext(Context);
-
-  if (!context.state?.wishlist?.length > 0) {
-    return <WishList />;
-  }
+  const token = context.state.token;
 
   const onClickProduct = productId => {
     navigation.navigate('item', {productId: productId});
   };
+
+  useEffect(() => {
+    if (token) {
+      Axios.get('db_wish/wish', {
+        headers: {Authorization: `Bearer ${token}`},
+      })
+        .then(res => {
+          context.setWishlist(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+  if (!context.state?.wishlist?.length > 0) {
+    return <WishList />;
+  }
 
   return (
     <View style={styles.container}>

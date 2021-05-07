@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Platform, Dimensions} from 'react-native';
-import {Image} from 'react-native-elements';
 import {ParallaxImage} from 'react-native-snap-carousel';
+import FastImage from 'react-native-fast-image';
 
 const sliderWidth = Dimensions.get('window').width;
 const entryBorderRadius = 8;
@@ -30,7 +30,11 @@ const EntrySilder = props => {
         {...parallaxProps}
       />
     ) : (
-      <Image source={{uri: illustration}} style={styles.image} />
+      <FastImage
+        source={{uri: illustration, priority: FastImage.priority.normal}}
+        style={styles.image}
+        resizeMode={FastImage.resizeMode.cover}
+      />
     );
   };
 

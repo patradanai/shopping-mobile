@@ -1,11 +1,22 @@
 import React from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Text} from 'react-native-elements';
+import FastImage from 'react-native-fast-image';
 
 const Categoryitem = props => {
   return (
     <View style={styles.container}>
-      <View style={styles.containerInner}></View>
+      <View style={styles.containerInner}>
+        <FastImage
+          style={styles.image}
+          source={{
+            uri:
+              'http://localhost:4000/images/categories/' + props.data.imageSrc,
+            priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      </View>
       <Text style={styles.textTitle} numberOfLines={3}>
         {props.data?.name}
       </Text>
@@ -16,6 +27,9 @@ const Categoryitem = props => {
 const styles = StyleSheet.create({
   container: {flex: 1, alignItems: 'center', width: 100},
   containerInner: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
     width: 80,
     height: 80,
     borderRadius: 50,
@@ -36,6 +50,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
     textAlign: 'center',
+  },
+  image: {
+    width: '100%',
+    aspectRatio: 1,
+    resizeMode: 'contain',
   },
 });
 

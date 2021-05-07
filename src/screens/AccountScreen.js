@@ -9,6 +9,7 @@ import {
   ScrollView,
   RefreshControl,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, Avatar, Icon} from 'react-native-elements';
 import AccountList from '../components/AccountItem';
 import Loading from '../components/Loading';
@@ -44,10 +45,6 @@ const listMore = [
     name: 'Feedback Us',
     avatar_url: <Icon name="megaphone-outline" type="ionicon" />,
   },
-  {
-    name: 'Logout',
-    avatar_url: <Icon name="exit-outline" type="ionicon" />,
-  },
 ];
 
 const Account = ({navigation}) => {
@@ -69,6 +66,17 @@ const Account = ({navigation}) => {
         .catch(err => console.log(err));
     }, 500);
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('token');
+      context.setProfile(null);
+      context.setToken(null);
+      navigation.replace('signin');
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // Fetch Profile
   useEffect(() => {
@@ -144,6 +152,13 @@ const Account = ({navigation}) => {
             <AccountList key={i} data={l} />
           ))}
         </View>
+        <AccountList
+          data={{
+            name: 'Logout',
+            avatar_url: <Icon name="exit-outline" type="ionicon" />,
+          }}
+          onPressList={() => handleLogout()}
+        />
       </ScrollView>
     </View>
   );

@@ -59,8 +59,6 @@ const ProfileScreen = ({route, navigation}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
 
-  console.log(profile);
-
   return (
     <View style={styles.container}>
       {/* Loading */}
@@ -71,7 +69,7 @@ const ProfileScreen = ({route, navigation}) => {
           <Avatar
             onPress={() => handlePickerImage()}
             rounded
-            title="PN"
+            title={profile?.fname[0] + profile?.lname[0]}
             size={120}
             source={
               profile?.imageSrc || imageProfile

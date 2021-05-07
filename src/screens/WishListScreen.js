@@ -22,10 +22,11 @@ const WishListScreen = ({navigation}) => {
 
   useEffect(() => {
     if (token) {
-      Axios.get('db_wish/wish', {
+      Axios.get('db_wish/wishs', {
         headers: {Authorization: `Bearer ${token}`},
       })
         .then(res => {
+          console.log(res.data);
           context.setWishlist(res.data);
         })
         .catch(err => {

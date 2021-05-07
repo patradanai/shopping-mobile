@@ -55,7 +55,7 @@ const reducer = (state, action) => {
     case 'SET_PROFILE':
       return {...state, profile: action.payload};
     case 'SET_WISHLIST':
-      return {...state, wishlist: [...state.wishlist, action.payload]};
+      return {...state, wishlist: [...action.payload]};
     case 'SET_CART':
       return {...state, cart: action.payload};
     case 'SET_ORDER':

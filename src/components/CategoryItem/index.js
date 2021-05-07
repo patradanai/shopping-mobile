@@ -3,6 +3,7 @@ import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import {navigate} from '../../routes/navigateRef';
+
 const Categoryitem = props => {
   return (
     <View style={styles.container}>

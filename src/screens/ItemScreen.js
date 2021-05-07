@@ -46,16 +46,12 @@ const ItemScreen = ({route, navigation}) => {
       setIsLoading(true);
       setTimeout(() => {
         Axios.post(
-          '/db_wish/wish',
-          {
-            productId: productId,
-          },
+          `/db_wish/wishs/${productId}`,
+          {},
           {headers: {authorization: `Bearer ${token}`}},
         )
           .then(res => {
             fetchGetCart();
-            // Add product to wish
-            context.setWishlist(product);
           })
           .catch(err => {
             console.log(err);

@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, StyleSheet, ActivityIndicator} from 'react-native';
-import {Text, Image} from 'react-native-elements';
+import {View, StyleSheet} from 'react-native';
+import {Text} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 
 const EmptyCart = () => {

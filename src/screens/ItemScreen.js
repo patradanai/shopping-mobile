@@ -62,6 +62,8 @@ const ItemScreen = ({route, navigation}) => {
             setIsLoading(false);
           });
       }, 500);
+    } else {
+      navigation.replace('signin');
     }
   };
 
@@ -109,6 +111,8 @@ const ItemScreen = ({route, navigation}) => {
             setIsLoading(false);
           });
       }, 500);
+    } else {
+      navigation.replace('signin');
     }
   };
 

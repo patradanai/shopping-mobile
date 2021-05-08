@@ -7,6 +7,7 @@ import OrderItem from '../../components/OrderItem';
 import Axios from '../../utils/lib/api/shipping';
 import * as RootNavigation from '../../routes/navigateRef';
 import Loading from '../../components/Loading';
+import {navigateReplace} from '../../routes/navigateRef';
 
 const ConfirmScreen = props => {
   const context = useContext(Context);
@@ -33,6 +34,9 @@ const ConfirmScreen = props => {
       )
         .then(res => {
           setIsLoading(false);
+
+          // Redirect Screen
+          navigateReplace('orderconfirm');
         })
         .catch(err => {
           console.log(err);

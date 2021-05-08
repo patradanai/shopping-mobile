@@ -1,18 +1,29 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useRef, useEffect} from 'react';
+import {View, StyleSheet, Animated} from 'react-native';
 import {Text, Button} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 
-const OrderConfirmScreen = () => {
+const OrderConfirmScreen = ({navigation}) => {
+  const fadeValue = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeValue, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeValue]);
   return (
     <View style={styles.container}>
       <View style={styles.containerText}>
-        <FastImage
-          style={styles.image}
-          source={require('../assets/image/check.png')}
-          resizeMode={FastImage.resizeMode.cover}
-        />
+        <Animated.View style={[{opacity: fadeValue}]}>
+          <FastImage
+            style={styles.image}
+            source={require('../assets/image/check.png')}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+        </Animated.View>
         <Text style={styles.textTitle}>Order Comfirmed</Text>
         <Text style={styles.textSub}>
           Your order is confirmed and will be its on way soon
@@ -20,6 +31,7 @@ const OrderConfirmScreen = () => {
       </View>
 
       <Button
+        onPress={() => navigation.replace('tab')}
         title="Next"
         containerStyle={{marginBottom: 20}}
         buttonStyle={{width: 200, borderRadius: 20}}

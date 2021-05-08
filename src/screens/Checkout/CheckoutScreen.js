@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useWindowDimensions, Dimensions} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {TabView, TabBar} from 'react-native-tab-view';
-
+import _ from 'lodash';
 import ConfirmScreen from './ComfirmScreen';
 import PaymentScreen from './PaymentScreen';
 import ShippingScreen from './ShippingScreen';
@@ -14,11 +14,13 @@ const width = Dimensions.get('window').width;
 const CheckoutScreen = () => {
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
+  const [spliceRoute, setSpliceRoute] = useState(null);
   const [routes] = useState([
     {key: 'shipping', title: 'Shipping'},
     {key: 'payment', title: 'Payment'},
     {key: 'confirm', title: 'Confirm'},
   ]);
+  const routeFilter = ['shipping', 'payment', 'confirm'];
 
   const renderScene = ({route, jumpTo}) => {
     switch (route.key) {
@@ -33,6 +35,10 @@ const CheckoutScreen = () => {
     }
   };
 
+  useEffect(() => {
+    setSpliceRoute(routeFilter.splice(0, index));
+  }, [index]);
+
   const renderTabBar = props => (
     <TabBar
       {...props}
@@ -45,7 +51,11 @@ const CheckoutScreen = () => {
       indicatorStyle={{backgroundColor: '#f4511e', height: 5, borderRadius: 10}}
       renderIcon={({route, focused, color}) => (
         <Icon
-          name={route.key ? 'checkmark-circle-outline' : null}
+          name={
+            _.includes(spliceRoute, route.key)
+              ? 'checkmark-circle-outline'
+              : null
+          }
           type="ionicon"
           color="green"
         />

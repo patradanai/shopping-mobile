@@ -138,7 +138,6 @@ const ShippingScreen = props => {
           },
         )
           .then(res => {
-            context.setProfile(res.data);
             setIsLoading(false);
             // pass State
             func;

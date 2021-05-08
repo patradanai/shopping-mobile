@@ -7,9 +7,9 @@ const CompletedOrderScreen = props => {
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
-    const status = ['Processed'];
+    const status = ['Completed'];
     const filterOrder = props.order?.filter(data =>
-      status.some(statusOrder => data.orderStatus === statusOrder),
+      status.every(statusOrder => data.orderStatus === statusOrder),
     );
     setOrder(filterOrder);
   }, [props.order]);

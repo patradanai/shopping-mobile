@@ -7,10 +7,11 @@ const PlaceOrderScreen = props => {
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
-    const status = ['Delivery', 'Processed'];
+    const status = ['Completed', 'Delivery'];
     const filterOrder = props.order?.filter(data =>
-      status.some(statusOrder => data.orderStatus !== statusOrder),
+      status.every(statusOrder => data.orderStatus !== statusOrder),
     );
+    console.log(filterOrder);
     setOrder(filterOrder);
   }, [props.order]);
 

@@ -7,7 +7,6 @@ const width = Dimensions.get('window').width; //full width
 const height = Dimensions.get('window').height; //full width
 
 const OrderStatusItem = props => {
-  console.log(props.order);
   return (
     <View style={styles.container}>
       {/* Image and Desc */}
@@ -76,7 +75,11 @@ const OrderStatusItem = props => {
           alignSelf: 'stretch',
         }}>
         <Text style={styles.textTitle}>Status</Text>
-        <Text style={styles.textSubTitle}>Pending</Text>
+        <Text style={styles.textSubTitle}>
+          {props.order?.trackingNumber
+            ? props.order?.trackingNumber
+            : props.order?.status}
+        </Text>
       </View>
     </View>
   );

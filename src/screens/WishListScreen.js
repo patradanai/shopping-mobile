@@ -26,7 +26,6 @@ const WishListScreen = ({navigation}) => {
         headers: {Authorization: `Bearer ${token}`},
       })
         .then(res => {
-          console.log(res.data);
           context.setWishlist(res.data);
         })
         .catch(err => {

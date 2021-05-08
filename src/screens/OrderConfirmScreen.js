@@ -1,11 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useLayoutEffect} from 'react';
 import {View, StyleSheet, Animated} from 'react-native';
 import {Text, Button} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 
 const OrderConfirmScreen = ({navigation}) => {
   const fadeValue = useRef(new Animated.Value(0)).current;
+
+  //Set Layout
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerBackTitleVisible: false,
+    });
+  }, [navigation]);
 
   useEffect(() => {
     Animated.timing(fadeValue, {

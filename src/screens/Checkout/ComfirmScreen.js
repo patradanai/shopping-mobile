@@ -18,32 +18,36 @@ const ConfirmScreen = props => {
   const handlePlaceOrder = () => {
     if (token) {
       setIsLoading(true);
-      Axios.post(
-        '/db_order/order',
-        {
-          orderStatusId: 1,
-          paymentId: 1,
-          name: context.state.order?.profile?.name,
-          phone: context.state.order?.profile?.phone,
-          shippingMethodId: 1,
-          shippingAddress: context.state.order?.shippingAddress?.Address,
-          subTotal: context.state.order?.subTotal,
-          grandTotal: context.state.order?.grandTotal,
-        },
-        {headers: {authorization: `Bearer ${token}`}},
-      )
-        .then(res => {
-          setIsLoading(false);
+      setTimeout(() => {
+        Axios.post(
+          '/db_order/order',
+          {
+            orderStatus: 'Pending',
+            paymentId: context.state.order?.payment?.index,
+            name: context.state.order?.profile?.name,
+            phone: context.state.order?.profile?.phone,
+            shippingMethodId: context.state.order?.shippingMethod?.index,
+            shippingAddress: context.state.order?.shippingAddress?.address,
+            subTotal: context.state.order?.subTotal,
+            grandTotal: context.state.order?.grandTotal,
+          },
+          {headers: {authorization: `Bearer ${token}`}},
+        )
+          .then(res => {
+            setIsLoading(false);
 
-          // Redirect Screen
-          navigateReplace('orderconfirm');
-        })
-        .catch(err => {
-          console.log(err);
-          setIsLoading(false);
-        });
+            // Redirect Screen
+            navigateReplace('orderconfirm');
+          })
+          .catch(err => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      }, 300);
     }
   };
+
+  console.log(context.state.order);
 
   return (
     <View style={styles.container}>

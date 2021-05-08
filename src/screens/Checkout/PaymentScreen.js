@@ -1,21 +1,18 @@
-import React, {useRef, useState, useContext} from 'react';
+import React, {useRef, useState, useContext, useEffect} from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {View, StyleSheet} from 'react-native';
 import {Text, Button, Icon} from 'react-native-elements';
 import {Context} from '../../context/shippingContext';
 import PaymentItem from '../../components/PaymentItem';
-
-const listPayment = [
-  {key: 1, name: 'COD'},
-  {key: 2, name: 'Paypal'},
-  {key: 3, name: 'Debit/Credit Card'},
-  {key: 4, name: 'Bank Account'},
-];
+import Axios from '../../utils/lib/api/shipping';
+import Loading from '../../components/Loading';
 
 const PaymentScreen = props => {
   const context = useContext(Context);
   const formRef = useRef();
+  const [isLoading, setIsloading] = useState(false);
+  const [payment, setPayment] = useState([]);
   const [statePayment, setStatePayment] = useState(null);
   const initialValues = {
     paymentMethod: '',
@@ -38,8 +35,27 @@ const PaymentScreen = props => {
     formRef.current.setFieldValue('paymentMethod', {payment: {index, name}});
   };
 
+  useEffect(() => {
+    setIsloading(true);
+    setTimeout(() => {
+      Axios.get('db_payment/payments')
+        .then(res => {
+          setPayment(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsloading(false);
+        });
+    }, 500);
+  }, []);
+
   return (
     <View style={styles.container}>
+      {/* Loading */}
+      <Loading state={isLoading} />
+
       <Text style={styles.textPayment}>Pay by</Text>
       {/* Form */}
       <Formik
@@ -53,11 +69,11 @@ const PaymentScreen = props => {
         }}>
         {({values, errors, handleSubmit}) => (
           <View style={styles.paymentContainer}>
-            {listPayment.map((data, index) => (
+            {payment?.map((data, index) => (
               <PaymentItem
                 name={data.name}
                 key={index}
-                index={data.key}
+                index={data.id}
                 state={statePayment}
                 onPress={handlePayment}
               />

@@ -37,6 +37,7 @@ const CheckoutScreen = () => {
 
   useEffect(() => {
     setSpliceRoute(routeFilter.splice(0, index));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
   const renderTabBar = props => (

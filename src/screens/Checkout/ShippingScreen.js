@@ -13,17 +13,10 @@ import Loading from '../../components/Loading';
 
 //Width SCreen
 
-const shippingList = [
-  {key: 1, name: 'Standard', price: 30},
-  {key: 2, name: 'EMS', price: 50},
-  {key: 3, name: 'Kerry', price: 70},
-  {key: 4, name: 'Flash', price: 50},
-  {key: 5, name: 'J&T', price: 50},
-];
-
 const ShippingScreen = props => {
   const context = useContext(Context);
   const [stateSave, setStateSave] = useState(false);
+  const [shippingList, setShippingList] = useState([]);
   const [stateAddr, setStateAddr] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [stateDelivery, setStateDelivery] = useState(null);
@@ -150,6 +143,16 @@ const ShippingScreen = props => {
     }
   };
 
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      Axios.get('/db_shipping/shippings')
+        .then(res => setShippingList(res.data))
+        .catch(err => console.log(err))
+        .finally(() => setIsLoading(false));
+    }, 500);
+  }, []);
+
   return (
     <View style={styles.container}>
       {/* Loading */}
@@ -249,7 +252,7 @@ const ShippingScreen = props => {
                       <DeliveryMethodItem
                         name={data.name}
                         price={data.price}
-                        index={data.key}
+                        index={data.id}
                         onPress={handleDelivery}
                         state={stateDelivery}
                         key={key}

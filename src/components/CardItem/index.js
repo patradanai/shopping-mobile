@@ -2,6 +2,7 @@
 import React from 'react';
 import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 import {Image, Text} from 'react-native-elements';
+import FastImage from 'react-native-fast-image';
 
 const cols = 2;
 const marginHorizontal = 4;
@@ -16,12 +17,15 @@ const CartItems = props => {
       <View style={styles.container}>
         {/* Image */}
         <View style={styles.imageContainer}>
-          <Image
+          <FastImage
             style={styles.image}
-            loadingIndicatorSource
+            resizeMode={FastImage.resizeMode.contain}
             source={
               props.data?.imageSrc
-                ? {uri: props.data?.imageSrc}
+                ? {
+                    uri: props.data?.imageSrc,
+                    priority: FastImage.priority.normal,
+                  }
                 : require('../../assets/image/no_product.png')
             }
           />

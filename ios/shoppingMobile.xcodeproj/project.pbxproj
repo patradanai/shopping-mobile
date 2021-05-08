@@ -11,8 +11,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		353340AB96A8CB2B01705CA8 /* libPods-shoppingMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7DF58FD6B5FB9E587EB567 /* libPods-shoppingMobile.a */; };
-		643577AECEFA85513DE99AC2 /* libPods-shoppingMobile-shoppingMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6BF6E7952E5BF2770137B19 /* libPods-shoppingMobile-shoppingMobileTests.a */; };
+		1990A2854D88A61418873817 /* libPods-shoppingMobile-shoppingMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDECB3688D4CFA0FB2154E9F /* libPods-shoppingMobile-shoppingMobileTests.a */; };
+		6443C5571A8042AE119D43A7 /* libPods-shoppingMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A57A548EEEDD533B1830ABA0 /* libPods-shoppingMobile.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -36,14 +36,14 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = shoppingMobile/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = shoppingMobile/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = shoppingMobile/main.m; sourceTree = "<group>"; };
-		58042231610325D79D4BB707 /* Pods-shoppingMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoppingMobile.debug.xcconfig"; path = "Target Support Files/Pods-shoppingMobile/Pods-shoppingMobile.debug.xcconfig"; sourceTree = "<group>"; };
+		273FAA24E28749DA63ACF267 /* Pods-shoppingMobile-shoppingMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoppingMobile-shoppingMobileTests.release.xcconfig"; path = "Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		5050AF95496CDD8612C26B51 /* Pods-shoppingMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoppingMobile.debug.xcconfig"; path = "Target Support Files/Pods-shoppingMobile/Pods-shoppingMobile.debug.xcconfig"; sourceTree = "<group>"; };
+		60056AB4AE9C31520D8342FD /* Pods-shoppingMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoppingMobile.release.xcconfig"; path = "Target Support Files/Pods-shoppingMobile/Pods-shoppingMobile.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = shoppingMobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		860C41047E51CEAE7017F631 /* Pods-shoppingMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoppingMobile.release.xcconfig"; path = "Target Support Files/Pods-shoppingMobile/Pods-shoppingMobile.release.xcconfig"; sourceTree = "<group>"; };
-		9FA0F4439B3B9E129F8DCA18 /* Pods-shoppingMobile-shoppingMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoppingMobile-shoppingMobileTests.release.xcconfig"; path = "Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests.release.xcconfig"; sourceTree = "<group>"; };
-		BC7DF58FD6B5FB9E587EB567 /* libPods-shoppingMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-shoppingMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6BF6E7952E5BF2770137B19 /* libPods-shoppingMobile-shoppingMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-shoppingMobile-shoppingMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E113B010DCD54A932CD01813 /* Pods-shoppingMobile-shoppingMobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoppingMobile-shoppingMobileTests.debug.xcconfig"; path = "Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A57A548EEEDD533B1830ABA0 /* libPods-shoppingMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-shoppingMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAEB2291BFB5A074B0CD8954 /* Pods-shoppingMobile-shoppingMobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoppingMobile-shoppingMobileTests.debug.xcconfig"; path = "Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EDECB3688D4CFA0FB2154E9F /* libPods-shoppingMobile-shoppingMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-shoppingMobile-shoppingMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				643577AECEFA85513DE99AC2 /* libPods-shoppingMobile-shoppingMobileTests.a in Frameworks */,
+				1990A2854D88A61418873817 /* libPods-shoppingMobile-shoppingMobileTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				353340AB96A8CB2B01705CA8 /* libPods-shoppingMobile.a in Frameworks */,
+				6443C5571A8042AE119D43A7 /* libPods-shoppingMobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,10 +100,22 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				BC7DF58FD6B5FB9E587EB567 /* libPods-shoppingMobile.a */,
-				C6BF6E7952E5BF2770137B19 /* libPods-shoppingMobile-shoppingMobileTests.a */,
+				A57A548EEEDD533B1830ABA0 /* libPods-shoppingMobile.a */,
+				EDECB3688D4CFA0FB2154E9F /* libPods-shoppingMobile-shoppingMobileTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3A15202EED351453FEA75895 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5050AF95496CDD8612C26B51 /* Pods-shoppingMobile.debug.xcconfig */,
+				60056AB4AE9C31520D8342FD /* Pods-shoppingMobile.release.xcconfig */,
+				EAEB2291BFB5A074B0CD8954 /* Pods-shoppingMobile-shoppingMobileTests.debug.xcconfig */,
+				273FAA24E28749DA63ACF267 /* Pods-shoppingMobile-shoppingMobileTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -121,8 +133,7 @@
 				00E356EF1AD99517003FC87E /* shoppingMobileTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				BB52470BEA4F1213E76D9D90 /* Pods */,
-				CB4573AF3A5F4878BFD184CC /* Resources */,
+				3A15202EED351453FEA75895 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -138,26 +149,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BB52470BEA4F1213E76D9D90 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				58042231610325D79D4BB707 /* Pods-shoppingMobile.debug.xcconfig */,
-				860C41047E51CEAE7017F631 /* Pods-shoppingMobile.release.xcconfig */,
-				E113B010DCD54A932CD01813 /* Pods-shoppingMobile-shoppingMobileTests.debug.xcconfig */,
-				9FA0F4439B3B9E129F8DCA18 /* Pods-shoppingMobile-shoppingMobileTests.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		CB4573AF3A5F4878BFD184CC /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Resources;
-			path = "";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -165,12 +156,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "shoppingMobileTests" */;
 			buildPhases = (
-				A937EA6412FC4AC013E32F48 /* [CP] Check Pods Manifest.lock */,
+				C3B8EA64B0DD391873DE5CFB /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				0919F590CCBBADC1D73BF7B7 /* [CP] Embed Pods Frameworks */,
-				B0018169623513FC808675BA /* [CP] Copy Pods Resources */,
+				CACE018E738696B727187F5C /* [CP] Embed Pods Frameworks */,
+				8364AB9BDA6F201A0C7CB29E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -186,14 +177,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "shoppingMobile" */;
 			buildPhases = (
-				49C1B6FB25BFFCF5E8F77358 /* [CP] Check Pods Manifest.lock */,
+				2F90ECA57C232DCEA5AA1F51 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				83107E9C081FE904AF0E9E49 /* [CP] Embed Pods Frameworks */,
-				287B7C698A8EC9D399EF405D /* [CP] Copy Pods Resources */,
+				E57D0590B5E2959261072226 /* [CP] Embed Pods Frameworks */,
+				0E54FF2D29EF4BC5C1F079AE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -274,24 +265,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		0919F590CCBBADC1D73BF7B7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		287B7C698A8EC9D399EF405D /* [CP] Copy Pods Resources */ = {
+		0E54FF2D29EF4BC5C1F079AE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -308,7 +282,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile/Pods-shoppingMobile-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		49C1B6FB25BFFCF5E8F77358 /* [CP] Check Pods Manifest.lock */ = {
+		2F90ECA57C232DCEA5AA1F51 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -330,24 +304,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		83107E9C081FE904AF0E9E49 /* [CP] Embed Pods Frameworks */ = {
+		8364AB9BDA6F201A0C7CB29E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile/Pods-shoppingMobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile/Pods-shoppingMobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile/Pods-shoppingMobile-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A937EA6412FC4AC013E32F48 /* [CP] Check Pods Manifest.lock */ = {
+		C3B8EA64B0DD391873DE5CFB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -369,21 +343,38 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B0018169623513FC808675BA /* [CP] Copy Pods Resources */ = {
+		CACE018E738696B727187F5C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile-shoppingMobileTests/Pods-shoppingMobile-shoppingMobileTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E57D0590B5E2959261072226 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile/Pods-shoppingMobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile/Pods-shoppingMobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-shoppingMobile/Pods-shoppingMobile-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -438,7 +429,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E113B010DCD54A932CD01813 /* Pods-shoppingMobile-shoppingMobileTests.debug.xcconfig */;
+			baseConfigurationReference = EAEB2291BFB5A074B0CD8954 /* Pods-shoppingMobile-shoppingMobileTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -465,7 +456,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FA0F4439B3B9E129F8DCA18 /* Pods-shoppingMobile-shoppingMobileTests.release.xcconfig */;
+			baseConfigurationReference = 273FAA24E28749DA63ACF267 /* Pods-shoppingMobile-shoppingMobileTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -489,7 +480,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58042231610325D79D4BB707 /* Pods-shoppingMobile.debug.xcconfig */;
+			baseConfigurationReference = 5050AF95496CDD8612C26B51 /* Pods-shoppingMobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -515,7 +506,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 860C41047E51CEAE7017F631 /* Pods-shoppingMobile.release.xcconfig */;
+			baseConfigurationReference = 60056AB4AE9C31520D8342FD /* Pods-shoppingMobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

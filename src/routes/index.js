@@ -24,6 +24,7 @@ import AddresScreen from '../screens/AddressScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import SplashScreen from '../screens/SpashScreen';
+import OrderConfirmScreen from '../screens/OrderConfirmScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -56,7 +57,7 @@ const ExploreStack = () => {
 
 const CartStack = () => {
   return (
-    <Stack.Navigator initialRouteName="cart">
+    <Stack.Navigator initialRouteName="orderconfirm">
       <Stack.Screen
         name="cart"
         component={CartScreen}
@@ -66,6 +67,11 @@ const CartStack = () => {
         name="checkout"
         component={CheckoutScreen}
         options={{headerTitle: 'Checkout'}}
+      />
+      <Stack.Screen
+        name="orderconfirm"
+        component={OrderConfirmScreen}
+        options={{headerTitle: 'OrderConfirm'}}
       />
     </Stack.Navigator>
   );

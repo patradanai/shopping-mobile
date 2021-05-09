@@ -11,7 +11,7 @@ const PlaceOrderScreen = props => {
     const filterOrder = props.order?.filter(data =>
       status.every(statusOrder => data.orderStatus !== statusOrder),
     );
-    console.log(filterOrder);
+
     setOrder(filterOrder);
   }, [props.order]);
 

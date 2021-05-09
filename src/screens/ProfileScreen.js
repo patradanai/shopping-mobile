@@ -1,5 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useContext, useLayoutEffect} from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useLayoutEffect,
+  useRef,
+} from 'react';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {View, StyleSheet, Platform} from 'react-native';
 import {Input, Button, Avatar, Icon} from 'react-native-elements';
@@ -10,8 +16,8 @@ import Loading from '../components/Loading';
 import Axios from '../utils/lib/api/shipping';
 
 const ProfileScreen = ({route, navigation}) => {
+  const formRef = useRef();
   const context = useContext(Context);
-  const [imageProfile, setImageProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const {profile} = route.params;
   const token = context.state.token;
@@ -20,12 +26,12 @@ const ProfileScreen = ({route, navigation}) => {
     phone: profile?.phone || '',
     fname: profile?.fname || '',
     lname: profile?.lname || '',
-    imageSrc: imageProfile || '',
+    imageSrc: '',
   };
 
   const handlePickerImage = () => {
     launchImageLibrary({mediaType: 'photo'}, response => {
-      if (response.uri) {
+      if (response) {
         // Add in Dataform
         let data = new FormData();
         data.append('profile', {
@@ -43,7 +49,7 @@ const ProfileScreen = ({route, navigation}) => {
           },
         })
           .then(res => {
-            setImageProfile(res.data.image);
+            formRef.current.setFieldValue('imageSrc', res.data?.image);
           })
           .catch(err => {
             console.log(err);
@@ -59,6 +65,10 @@ const ProfileScreen = ({route, navigation}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
 
+  useEffect(() => {
+    console.log(formRef.current);
+  }, [formRef]);
+
   return (
     <View style={styles.container}>
       {/* Loading */}
@@ -72,9 +82,13 @@ const ProfileScreen = ({route, navigation}) => {
             title={profile?.fname[0] + profile?.lname[0]}
             size={120}
             source={
-              profile?.imageSrc || imageProfile
+              formRef.current.values.imageSrc
                 ? {
-                    uri: profile?.imageSrc || imageProfile,
+                    uri: formRef.current.values.imageSrc,
+                  }
+                : profile?.imageSrc
+                ? {
+                    uri: profile?.imageSrc,
                   }
                 : require('../assets/image/avatar.png')
             }>
@@ -82,7 +96,7 @@ const ProfileScreen = ({route, navigation}) => {
           </Avatar>
         </View>
         <Formik
-          enableReinitialize={true}
+          innerRef={formRef}
           initialValues={initialValues}
           validationSchema={Yup.object().shape({
             fname: Yup.string().required('Please fill your name'),

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect, useContext} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView, RefreshControl} from 'react-native';
 import {Button, Text} from 'react-native-elements';
 import {Context} from '../context/shippingContext';
 import EmptyCart from '../components/EmptyCart';
@@ -21,18 +21,20 @@ const CartScreen = ({navigation}) => {
   const fetchGetCart = () => {
     if (token) {
       setIsloading(true);
-      Axios.get('/db_cart/cart', {
-        headers: {authorization: `Bearer ${token}`},
-      })
-        .then(res => {
-          //set Cart
-          context.setCart(res.data.data);
-          setIsloading(false);
+      setTimeout(() => {
+        Axios.get('/db_cart/cart', {
+          headers: {authorization: `Bearer ${token}`},
         })
-        .catch(err => {
-          console.log(err);
-          setIsloading(false);
-        });
+          .then(res => {
+            //set Cart
+            context.setCart(res.data.data);
+            setIsloading(false);
+          })
+          .catch(err => {
+            console.log(err);
+            setIsloading(false);
+          });
+      }, 500);
     }
   };
 
@@ -91,7 +93,14 @@ const CartScreen = ({navigation}) => {
       <Loading state={isLoading} />
 
       {/* ListCart */}
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            onRefresh={fetchGetCart}
+            refreshing={isLoading}
+            title="Loading..."
+          />
+        }>
         <View>
           {context.state?.cart?.Products.map((data, index) => (
             <CartItem

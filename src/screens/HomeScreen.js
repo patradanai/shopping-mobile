@@ -1,6 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState, useContext, useCallback} from 'react';
-import {View, StyleSheet, ScrollView, FlatList} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  FlatList,
+  RefreshControl,
+} from 'react-native';
 import {Text} from 'react-native-elements';
 import CardItem from '../components/CardItem';
 import {Context} from '../context/shippingContext';
@@ -43,6 +49,7 @@ const carouselItems = [
 
 const Home = ({route, navigation}) => {
   const context = useContext(Context);
+  const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState(null);
   const [categories, setCategories] = useState(null);
   const token = context.state.token;
@@ -65,19 +72,32 @@ const Home = ({route, navigation}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  useEffect(() => {
-    // Fectchinh Product
-    Axios.get('/db_product/products')
-      .then(res => setProducts(res.data.data))
-      .catch(err => console.log(err));
+  /**
+   *  feching Product
+   */
 
-    Axios.get('/db_category/categories')
-      .then(res => {
-        setCategories(res.data.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  const fetchProducts = () => {
+    setIsLoading(true);
+    // Fectchinh Product
+    setTimeout(() => {
+      Axios.get('/db_product/products')
+        .then(res => setProducts(res.data.data))
+        .then(() => {
+          Axios.get('/db_category/categories')
+            .then(res => {
+              setCategories(res.data.data);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(err => console.log(err))
+        .finally(() => setIsLoading(false));
+    }, 500);
+  };
+
+  useEffect(() => {
+    fetchProducts();
   }, []);
 
   useEffect(() => {
@@ -86,7 +106,16 @@ const Home = ({route, navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={{flex: 1}}>
+      <ScrollView
+        style={{flex: 1}}
+        refreshControl={
+          <RefreshControl
+            onRefresh={fetchProducts}
+            title="Pull to Refresh"
+            refreshing={isLoading}
+            style={{backgroundColor: 'transparent'}}
+          />
+        }>
         {/* Carousel */}
         <CarouselItem entries={carouselItems} />
         {/* Category */}

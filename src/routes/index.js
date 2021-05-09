@@ -57,7 +57,7 @@ const ExploreStack = () => {
 
 const CartStack = () => {
   return (
-    <Stack.Navigator initialRouteName="cart">
+    <Stack.Navigator initialRouteName="cartr">
       <Stack.Screen
         name="cart"
         component={CartScreen}

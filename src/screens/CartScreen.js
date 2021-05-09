@@ -90,7 +90,7 @@ const CartScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       {/* Loading */}
-      <Loading state={isLoading} />
+      {/* <Loading state={isLoading} /> */}
 
       {/* ListCart */}
       <ScrollView
